@@ -1,25 +1,17 @@
 package com.example.fixit;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.storage.FileDownloadTask;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -56,12 +48,16 @@ public class IssuesAdapter extends RecyclerView.Adapter<IssuesAdapter.ViewHolder
 
     class ViewHolder extends RecyclerView.ViewHolder{
 
-        TextView tvTitle;
+        String INTENT_ISSUE_EXTRA = DetailsActivity.class.getSimpleName();
+
         ImageView ivIssue;
+        TextView tvTitle;
         TextView tvTimestamp;
         TextView tvStatus;
         TextView tvFixvotes;
         TextView tvAddress;
+        ImageButton btnDetails;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -72,7 +68,16 @@ public class IssuesAdapter extends RecyclerView.Adapter<IssuesAdapter.ViewHolder
             tvStatus = itemView.findViewById(R.id.tvStatusSingle);
             tvFixvotes = itemView.findViewById(R.id.tvFixVotes);
             tvAddress = itemView.findViewById(R.id.tvAddressSingle);
-
+            btnDetails = itemView.findViewById(R.id.btnShareIssue);
+            btnDetails.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Issue tempIssue = issues.get(getAdapterPosition());
+                    Intent intent = new Intent(context, DetailsActivity.class);
+                    intent.putExtra(INTENT_ISSUE_EXTRA, tempIssue);
+                    context.startActivity(intent);
+                }
+            });
         }
 
         public void bind(Issue issue) {
@@ -82,33 +87,10 @@ public class IssuesAdapter extends RecyclerView.Adapter<IssuesAdapter.ViewHolder
             tvFixvotes.setText(issue.getFixvotes()+"");
             tvAddress.setText(issue.getLocation().getAddress());
             try {
-                downloadFile(issue.getIssueID());
+                issue.downloadFile(ivIssue);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-
-        public void downloadFile(String key) throws IOException {
-            final File issueImage = File.createTempFile("images", "jpg");
-            StorageReference mImageRef = FirebaseStorage.getInstance().getReference().child(IMAGE_STORAGE_ROUTE + key + IMAGE_FORMAT);
-            mImageRef.getFile(issueImage)
-                    .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                            // Successfully downloaded data to local file
-                            // by this point we have the camera photo on disk
-                            Bitmap takenImage = BitmapFactory.decodeFile(issueImage.getAbsolutePath());
-                            // Load the taken image into a preview
-                            ivIssue.setImageBitmap(takenImage);
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                    // Handle failed download
-                    Toast.makeText(context, "Unable t download image in adapter", Toast.LENGTH_LONG).show();
-                }
-            });
-        }
     }
-
 }
