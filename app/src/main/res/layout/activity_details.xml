@@ -3,147 +3,211 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     tools:context=".DetailsActivity">
 
-    <TextView
-        android:id="@+id/tvTitleDetails"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/ivDetails"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/ivDetails"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/hDivider"
-        app:layout_constraintEnd_toStartOf="@+id/tvUrgency"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitleDetails" />
-
-    <SeekBar
-        android:id="@+id/sbDanger"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:max="100"
-        android:min="0"
-        android:progressDrawable="@drawable/custom_progess"
-        app:layout_constraintBottom_toTopOf="@+id/tvUtility"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/tvDanger"
-        app:layout_constraintTop_toBottomOf="@+id/tvDanger" />
-
-    <SeekBar
-        android:id="@+id/sbUtility"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:max="100"
-        android:min="0"
-        android:progressDrawable="@drawable/custom_progess"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/tvUtility"
-        app:layout_constraintTop_toBottomOf="@+id/tvUtility" />
-
-    <SeekBar
-        android:id="@+id/sbUrgency"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:max="100"
-        android:min="0"
-        android:progressDrawable="@drawable/custom_progess"
-        app:layout_constraintBottom_toTopOf="@+id/tvDanger"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/tvUrgency"
-        app:layout_constraintTop_toBottomOf="@+id/tvUrgency" />
-
-    <TextView
-        android:id="@+id/tvUrgency"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Urgency"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/sbUrgency"
-        app:layout_constraintStart_toEndOf="@+id/ivDetails"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitleDetails" />
-
-    <TextView
-        android:id="@+id/tvUtility"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="7dp"
-        android:text="Utility"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/sbUtility"
-        app:layout_constraintStart_toStartOf="@+id/sbDanger"
-        app:layout_constraintTop_toBottomOf="@+id/sbDanger" />
-
-    <View
-        android:id="@+id/hDivider"
-        android:layout_width="395dp"
-        android:layout_height="1dp"
-        android:layout_marginTop="15dp"
-        android:background="?android:attr/listDivider"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivDetails" />
-
-    <TextView
-        android:id="@+id/tvTimestampDetails"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/tvStatusDetails"
-        app:layout_constraintEnd_toEndOf="@+id/ivDetails"
-        app:layout_constraintStart_toStartOf="@+id/ivDetails"
-        app:layout_constraintTop_toBottomOf="@+id/hDivider" />
-
-    <TextView
-        android:id="@+id/tvStatusDetails"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+    <ScrollView
+        android:id="@+id/svDetails"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/tvTimestampDetails"
-        app:layout_constraintStart_toStartOf="@+id/tvTimestampDetails"
-        app:layout_constraintTop_toBottomOf="@+id/tvTimestampDetails" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
 
-    <TextView
-        android:id="@+id/tvDanger"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="8dp"
-        android:text="Danger"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/sbDanger"
-        app:layout_constraintStart_toStartOf="@+id/sbUrgency"
-        app:layout_constraintTop_toBottomOf="@+id/sbUrgency" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/vpImageDetails"
+                android:layout_width="0dp"
+                android:layout_height="250dp"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintBottom_toTopOf="@+id/btnFixVoteDetails"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTitleDetails">
+
+            </androidx.viewpager.widget.ViewPager>
+
+            <ImageButton
+                android:id="@+id/btnFixVoteDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:background="#00FFFFFF"
+                android:src="@drawable/ic_fix_issue"
+                app:layout_constraintBottom_toTopOf="@+id/tvTimestampDetails"
+                app:layout_constraintEnd_toEndOf="@+id/vpImageDetails"
+                app:layout_constraintStart_toEndOf="@+id/pbDetails"
+                app:layout_constraintTop_toTopOf="@+id/pbDetails" />
+
+            <TextView
+                android:id="@+id/tvTitleDetails"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="16dp"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/vpImageDetails"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <SeekBar
+                android:id="@+id/sbDanger"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="8dp"
+                android:max="100"
+                android:min="0"
+                android:progressDrawable="@drawable/custom_progess"
+                app:layout_constraintBottom_toTopOf="@+id/tvUtility"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tvDanger"
+                app:layout_constraintTop_toBottomOf="@+id/tvDanger" />
+
+            <SeekBar
+                android:id="@+id/sbUtility"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:max="100"
+                android:min="0"
+                android:progressDrawable="@drawable/custom_progess"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tvUtility"
+                app:layout_constraintTop_toBottomOf="@+id/tvUtility" />
+
+            <SeekBar
+                android:id="@+id/sbUrgency"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="8dp"
+                android:max="100"
+                android:min="0"
+                android:progressDrawable="@drawable/custom_progess"
+                app:layout_constraintBottom_toTopOf="@+id/tvDanger"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tvUrgency"
+                app:layout_constraintTop_toBottomOf="@+id/tvUrgency" />
+
+            <TextView
+                android:id="@+id/tvUrgency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="Urgency"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/sbUrgency"
+                app:layout_constraintStart_toStartOf="@+id/tvDescription"
+                app:layout_constraintTop_toBottomOf="@+id/tvDescription" />
+
+            <TextView
+                android:id="@+id/tvUtility"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="9dp"
+                android:text="Utility"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/sbUtility"
+                app:layout_constraintStart_toStartOf="@+id/sbDanger"
+                app:layout_constraintTop_toBottomOf="@+id/sbDanger" />
+
+            <TextView
+                android:id="@+id/tvTimestampDetails"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/tvLocationHeader"
+                app:layout_constraintEnd_toEndOf="@+id/btnFixVoteDetails"
+                app:layout_constraintTop_toBottomOf="@+id/pbDetails" />
+
+            <TextView
+                android:id="@+id/tvDescription"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/tvUrgency"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tvDescriptionHeader"
+                app:layout_constraintTop_toBottomOf="@+id/tvDescriptionHeader" />
+
+            <TextView
+                android:id="@+id/tvDanger"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="Danger"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/sbDanger"
+                app:layout_constraintStart_toStartOf="@+id/sbUrgency"
+                app:layout_constraintTop_toBottomOf="@+id/sbUrgency" />
+
+            <ProgressBar
+                android:id="@+id/pbDetails"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/tvTimestampDetails"
+                app:layout_constraintEnd_toStartOf="@+id/btnFixVoteDetails"
+                app:layout_constraintStart_toStartOf="@+id/vpImageDetails"
+                app:layout_constraintTop_toBottomOf="@+id/vpImageDetails" />
+
+            <TextView
+                android:id="@+id/tvLocationHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="8dp"
+                android:text="Location"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toTopOf="@+id/tvDescriptionHeader"
+                app:layout_constraintStart_toStartOf="@+id/pbDetails"
+                app:layout_constraintTop_toBottomOf="@+id/tvTimestampDetails" />
+
+            <TextView
+                android:id="@+id/tvDescriptionHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="Description"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toTopOf="@+id/tvDescription"
+                app:layout_constraintStart_toStartOf="@+id/tvLocationHeader"
+                app:layout_constraintTop_toBottomOf="@+id/tvLocationHeader" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
