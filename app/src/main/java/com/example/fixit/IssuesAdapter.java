@@ -1,6 +1,7 @@
 package com.example.fixit;
 
 import android.content.Context;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.IOException;
@@ -46,9 +48,6 @@ public class IssuesAdapter extends RecyclerView.Adapter<IssuesAdapter.ViewHolder
 
     class ViewHolder extends RecyclerView.ViewHolder{
 
-        String INTENT_ISSUE_EXTRA = DetailsActivity.class.getSimpleName();
-        String INTENT_DATE_EXTRA = "date";
-
         ImageView ivIssue;
         TextView tvTitle;
         TextView tvTimestamp;
@@ -77,9 +76,10 @@ public class IssuesAdapter extends RecyclerView.Adapter<IssuesAdapter.ViewHolder
 //            });
         }
 
+        @RequiresApi(api = Build.VERSION_CODES.O)
         public void bind(Issue issue) {
             tvTitle.setText(issue.getDescription());
-            tvTimestamp.setText(issue.getDate().toString());
+            tvTimestamp.setText(issue.formarDate());
             tvFixvotes.setText(issue.getFixvotes()+"");
             tvAddress.setText(issue.getLocation().getAddress());
 //            issue.downloadBytes(ivIssue);

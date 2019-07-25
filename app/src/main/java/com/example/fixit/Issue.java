@@ -2,12 +2,14 @@ package com.example.fixit;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -17,6 +19,8 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 
 public class Issue implements Parcelable {
@@ -185,5 +189,15 @@ public class Issue implements Parcelable {
                 Log.d("failure", "Error downloading image, do not try again");
             }
         });
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public String formarDate(){
+        Date date = new Date();
+        LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        int year  = localDate.getYear();
+        int month = localDate.getMonthValue();
+        int day   = localDate.getDayOfMonth();
+        return month + "/" + day + "/" + year + " ";
     }
 }
