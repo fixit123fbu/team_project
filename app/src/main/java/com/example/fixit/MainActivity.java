@@ -42,15 +42,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 SignUp();
-//                Intent intent = new Intent(MainActivity.this, UserActivity.class);
-//                startActivity(intent);
-//                finish();
+                Intent intent = new Intent(MainActivity.this, UserActivity.class);
+                startActivity(intent);
+                finish();
 
             }
         });
-        Intent intent = new Intent(MainActivity.this, UserActivity.class);
-        startActivity(intent);
-        finish();
+//        Intent intent = new Intent(MainActivity.this, UserActivity.class);
+//        startActivity(intent);
+//        finish();
     }
 
     @Override

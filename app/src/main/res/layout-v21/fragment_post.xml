@@ -1,129 +1,186 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+onstraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView4">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/idCardView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="53dp"
-        app:cardCornerRadius="4dp"
-        app:layout_constraintBottom_toTopOf="@+id/scrollPostIssue"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+                <fragment
+                    android:id="@+id/autocomplete_fragment"
+                    android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-        <fragment
-            android:id="@+id/autocomplete_fragment"
-            android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-    </androidx.cardview.widget.CardView>
-
-    <ScrollView
-        android:id="@+id/scrollPostIssue"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idCardView">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <Button
-                android:id="@+id/btnSubmit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="19dp"
-                android:layout_marginBottom="8dp"
-                android:text="Post Issue"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/etDescription" />
-
-            <EditText
-                android:id="@+id/etDescription"
-                android:layout_width="0dp"
-                android:layout_height="53dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:ems="10"
-                android:hint="Enter a description."
-                android:inputType="textPersonName"
-                app:layout_constraintEnd_toStartOf="@+id/btnTakePicture"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/etTitle" />
+            </androidx.cardview.widget.CardView>
 
             <ImageView
                 android:id="@+id/ivPreview"
-                android:layout_width="0dp"
-                android:layout_height="200dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="30dp"
-                android:adjustViewBounds="true"
+                android:layout_width="409dp"
+                android:layout_height="249dp"
+                android:layout_marginEnd="2dp"
+                android:layout_marginRight="2dp"
+                android:background="#FFFFFF"
+                android:contentDescription="TODO"
                 app:layout_constraintBottom_toTopOf="@+id/btnPickFromGallery"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageButton
-                android:id="@+id/btnPickFromGallery"
-                android:layout_width="55dp"
-                android:layout_height="46dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toTopOf="@+id/btnTakePicture"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/etTitle"
-                app:layout_constraintTop_toTopOf="@+id/etTitle"
-                app:srcCompat="@android:drawable/ic_menu_camera" />
-
-            <ImageButton
-                android:id="@+id/btnTakePicture"
-                android:layout_width="55dp"
-                android:layout_height="46dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintEnd_toEndOf="@+id/btnPickFromGallery"
-                app:layout_constraintStart_toEndOf="@+id/etDescription"
-                app:layout_constraintTop_toBottomOf="@+id/btnPickFromGallery"
-                app:srcCompat="@android:drawable/ic_menu_camera" />
+                app:layout_constraintTop_toBottomOf="@+id/idCardView"
+                app:srcCompat="@drawable/postinstru" />
 
             <EditText
                 android:id="@+id/etTitle"
-                android:layout_width="0dp"
+                android:layout_width="373dp"
+                android:layout_height="52dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/cabin"
+                android:hint="Enter a title for your issue. (e.g. litter, broken fountain, etc.)"
+                android:spinnerMode="dropdown"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toTopOf="@+id/etDescription"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+
+            <ImageButton
+                android:id="@+id/btnTakePicture"
+                android:layout_width="86dp"
+                android:layout_height="69dp"
+                android:layout_marginStart="60dp"
+                android:layout_marginLeft="60dp"
+                android:layout_marginEnd="60dp"
+                android:layout_marginRight="60dp"
+                android:layout_marginBottom="16dp"
+                android:background="#FFFFFF"
+                app:layout_constraintBottom_toTopOf="@+id/imageView5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/tvOr"
+                app:layout_constraintTop_toBottomOf="@+id/ivPreview"
+                app:srcCompat="@drawable/camm" />
+
+            <Button
+                android:id="@+id/btnSubmit"
+                style="@style/Widget.AppCompat.Button.Small"
+                android:layout_width="102dp"
+                android:layout_height="46dp"
+                android:layout_marginStart="70dp"
+                android:layout_marginLeft="70dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="13dp"
+                android:layout_marginRight="13dp"
+                android:layout_marginBottom="32dp"
+                android:background="#FFC107"
+                android:fontFamily="@font/cabin"
+                android:text="Submit"
+                android:textColor="#FFFFFF"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.472"
+                app:layout_constraintStart_toEndOf="@+id/switch1"
+                app:layout_constraintTop_toBottomOf="@+id/etDescription" />
+
+            <Switch
+                android:id="@+id/switch1"
+                android:layout_width="176dp"
+                android:layout_height="42dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="32dp"
+                android:fontFamily="@font/cabin"
+                android:text="Post anonymously"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btnSubmit"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etDescription"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <EditText
+                android:id="@+id/etDescription"
+                style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox"
+                android:layout_width="373dp"
+                android:layout_height="52dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="2dp"
+                android:ems="10"
+                android:fontFamily="@font/cabin"
+                android:hint="Write a brief description."
+                android:inputType="textLongMessage"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toTopOf="@+id/btnSubmit"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etTitle" />
+
+            <ImageButton
+                android:id="@+id/btnPickFromGallery"
+                style="@android:style/Widget.Material.Light.ImageButton"
+                android:layout_width="99dp"
+                android:layout_height="72dp"
+                android:layout_marginStart="60dp"
+                android:layout_marginLeft="60dp"
+                android:layout_marginEnd="60dp"
+                android:layout_marginRight="60dp"
+                android:layout_marginBottom="44dp"
+                android:background="#FFFFFF"
+                android:cropToPadding="false"
+                app:layout_constraintBottom_toTopOf="@+id/imageView5"
+                app:layout_constraintEnd_toStartOf="@+id/tvOr"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivPreview"
+                app:srcCompat="@drawable/gallery" />
+
+            <TextView
+                android:id="@+id/tvOr"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginBottom="16dp"
+                android:text="OR"
+                app:layout_constraintBottom_toTopOf="@+id/imageView5"
+                app:layout_constraintEnd_toStartOf="@+id/btnTakePicture"
+                app:layout_constraintStart_toEndOf="@+id/btnPickFromGallery"
+                app:layout_constraintTop_toBottomOf="@+id/ivPreview"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="433dp"
+                android:layout_height="266dp"
+                android:visibility="visible"
+                app:layout_constraintBottom_toTopOf="@+id/idCardView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/searcinbstru" />
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="254dp"
+                android:layout_height="202dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="34dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
-                android:layout_marginBottom="8dp"
-                android:hint="Enter title."
-                android:spinnerMode="dropdown"
-                app:layout_constraintBottom_toTopOf="@+id/etDescription"
-                app:layout_constraintEnd_toStartOf="@+id/btnPickFromGallery"
+                app:layout_constraintBottom_toTopOf="@+id/btnPickFromGallery"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ivPreview" />
+                app:layout_constraintTop_toBottomOf="@+id/tvOr"
+                app:srcCompat="@drawable/dets" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-
     </ScrollView>
 
 

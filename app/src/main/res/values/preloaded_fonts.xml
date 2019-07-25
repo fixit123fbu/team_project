@@ -2,6 +2,8 @@
 <resources>
     <array name="preloaded_fonts" translatable="false">
         <item>@font/arimo</item>
+        <item>@font/atma_bold</item>
+        <item>@font/atma_medium</item>
         <item>@font/cabin</item>
     </array>
 </resources>
