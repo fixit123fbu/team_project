@@ -2,7 +2,6 @@ package com.example.fixit;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -51,6 +50,6 @@ public class UserActivity extends AppCompatActivity {
             }
         });
         // Sets default selection
-        bottomNavigationView.setSelectedItemId(R.id.action_post);
+        bottomNavigationView.setSelectedItemId(R.id.action_timeline);
     }
 }

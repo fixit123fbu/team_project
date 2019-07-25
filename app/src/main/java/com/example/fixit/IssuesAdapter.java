@@ -49,6 +49,7 @@ public class IssuesAdapter extends RecyclerView.Adapter<IssuesAdapter.ViewHolder
     class ViewHolder extends RecyclerView.ViewHolder{
 
         String INTENT_ISSUE_EXTRA = DetailsActivity.class.getSimpleName();
+        String INTENT_DATE_EXTRA = "date";
 
         ImageView ivIssue;
         TextView tvTitle;
@@ -70,11 +71,14 @@ public class IssuesAdapter extends RecyclerView.Adapter<IssuesAdapter.ViewHolder
             tvAddress = itemView.findViewById(R.id.tvAddressSingle);
             btnDetails = itemView.findViewById(R.id.btnShareIssue);
             btnDetails.setOnClickListener(new View.OnClickListener() {
+
+
                 @Override
                 public void onClick(View v) {
                     Issue tempIssue = issues.get(getAdapterPosition());
                     Intent intent = new Intent(context, DetailsActivity.class);
                     intent.putExtra(INTENT_ISSUE_EXTRA, tempIssue);
+                    intent.putExtra(INTENT_DATE_EXTRA, tempIssue.getDate().getTime());
                     context.startActivity(intent);
                 }
             });
@@ -86,6 +90,7 @@ public class IssuesAdapter extends RecyclerView.Adapter<IssuesAdapter.ViewHolder
             tvStatus.setText("Process");
             tvFixvotes.setText(issue.getFixvotes()+"");
             tvAddress.setText(issue.getLocation().getAddress());
+//            issue.downloadBytes(ivIssue);
             try {
                 issue.downloadFile(ivIssue);
             } catch (IOException e) {

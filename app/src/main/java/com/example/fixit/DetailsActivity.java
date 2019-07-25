@@ -7,14 +7,12 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.io.IOException;
+import java.util.Date;
 
 public class DetailsActivity extends AppCompatActivity {
 
     String INTENT_ISSUE_EXTRA = DetailsActivity.class.getSimpleName();
-    String INTENT_BITMAP_EXTRA = "images";
-    private final static String IMAGE_STORAGE_ROUTE = "images/";
-    private static final String IMAGE_FORMAT = ".jpg";
+    String INTENT_DATE_EXTRA = "date";
 
     SeekBar sbUrgency;
     SeekBar sbDanger;
@@ -22,6 +20,7 @@ public class DetailsActivity extends AppCompatActivity {
     ImageView ivIssueDetails;
     Issue issue;
     TextView tvTitleDetails;
+    TextView tvTimestampDetails;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,12 +32,15 @@ public class DetailsActivity extends AppCompatActivity {
         sbUtility = findViewById(R.id.sbUtility);
         ivIssueDetails = findViewById(R.id.ivDetails);
         tvTitleDetails = findViewById(R.id.tvTitleDetails);
+        tvTimestampDetails = findViewById(R.id.tvTimestampDetails);
         issue = getIntent().getParcelableExtra(INTENT_ISSUE_EXTRA);
-        try {
-            issue.downloadFile(ivIssueDetails);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        issue.setDate(new Date(getIntent().getLongExtra(INTENT_DATE_EXTRA, 0)));
+//        try {
+//            issue.downloadFile(ivIssueDetails);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         tvTitleDetails.setText(issue.getTitle());
+        tvTimestampDetails.setText(issue.getDate().toString());
     }
 }

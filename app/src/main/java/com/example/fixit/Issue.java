@@ -53,14 +53,6 @@ public class Issue implements Parcelable {
             fixvotes = in.readInt();
         }
         location = in.readParcelable(Location.class.getClassLoader());
-        long tempDate = in.readLong();
-        if(tempDate != -1) {
-            this.date = null;
-            Log.d("tag", "failure creating date from parcelable");
-        }
-        else{
-            this.date = new Date(tempDate);
-        }
     }
 
     public static final Creator<Issue> CREATOR = new Creator<Issue>() {
@@ -92,14 +84,6 @@ public class Issue implements Parcelable {
             dest.writeInt(fixvotes);
         }
         dest.writeParcelable(location, flags);
-        long tempDate = dest.readLong();
-        if(tempDate != -1) {
-            this.date = null;
-            Log.d("tag", "failure creating date from parcelable");
-        }
-        else{
-            this.date = new Date(tempDate);
-        }
     }
 
     public Integer getFixvotes() {
@@ -179,6 +163,26 @@ public class Issue implements Parcelable {
             @Override
             public void onFailure(@NonNull Exception exception) {
                 // Handle failed download
+            }
+        });
+    }
+
+    public void downloadBytes(final ImageView imageView){
+        final long ONE_MEGABYTE = 1024 * 1024;
+        StorageReference mBytesRef = FirebaseStorage.getInstance().getReference().child(IMAGE_STORAGE_ROUTE + getIssueID() + IMAGE_FORMAT);
+        mBytesRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                // Data for "images/island.jpg" is returns, use this as needed
+                Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                imageView.setImageBitmap(bmp);
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle any errors
+                Log.d("failure", "Error downloading image, do not try again");
             }
         });
     }
