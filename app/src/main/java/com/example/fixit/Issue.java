@@ -200,4 +200,14 @@ public class Issue implements Parcelable {
         int day   = localDate.getDayOfMonth();
         return month + "/" + day + "/" + year + " ";
     }
+
+    public String auxFormatAddress(String address){
+        int endIndex = address.lastIndexOf(',');
+        return address.substring(0, endIndex);
+    }
+
+    public String formatAddress(){
+        String address = location.getAddress();
+        return auxFormatAddress(auxFormatAddress(address));
+    }
 }

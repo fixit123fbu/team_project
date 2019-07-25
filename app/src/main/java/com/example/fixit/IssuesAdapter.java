@@ -81,7 +81,7 @@ public class IssuesAdapter extends RecyclerView.Adapter<IssuesAdapter.ViewHolder
             tvTitle.setText(issue.getDescription());
             tvTimestamp.setText(issue.formarDate());
             tvFixvotes.setText(issue.getFixvotes()+"");
-            tvAddress.setText(issue.getLocation().getAddress());
+            tvAddress.setText(issue.formatAddress());
 //            issue.downloadBytes(ivIssue);
             try {
                 issue.downloadFile(ivIssue);
