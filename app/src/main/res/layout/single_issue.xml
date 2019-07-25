@@ -5,133 +5,130 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-
-    <ImageView
-        android:id="@+id/ivIssueSingle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:adjustViewBounds="true"
-        android:foregroundGravity="fill_horizontal"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toTopOf="@+id/btnFixVote"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvWholeIssue"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="8dp"
+        android:elevation="10dp"
+        app:cardCornerRadius="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitleSingle"
-        />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/tvTitleSingle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:gravity="start"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/ivIssueSingle"
-        app:layout_constraintEnd_toStartOf="@+id/tvStatusSingle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tvStatusSingle"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:background="@drawable/rounded_corner"
-        android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="@+id/tvTitleSingle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tvTitleSingle"
-        app:layout_constraintTop_toTopOf="@+id/tvTitleSingle" />
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvRoundedCorners"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_marginBottom="8dp"
+                android:elevation="10dp"
+                app:cardCornerRadius="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/pbFixVotes"
+                app:layout_constraintStart_toStartOf="@+id/tvTitleSingle"
+                app:layout_constraintTop_toBottomOf="@+id/tvTitleSingle">
 
-    <ImageButton
-        android:id="@+id/btnFixVote"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="#00FFFFFF"
-        android:src="@drawable/ic_fix_issue"
-        app:layout_constraintBottom_toTopOf="@+id/tvFixVotes"
-        app:layout_constraintEnd_toEndOf="@+id/ivIssueSingle"
-        app:layout_constraintStart_toEndOf="@+id/tvTimeStampSingle"
-        app:layout_constraintTop_toBottomOf="@+id/ivIssueSingle" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-    <ImageButton
-        android:id="@+id/btnCommentIssue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:background="#00FFFFFF"
-        android:src="@drawable/ic_comment_issue"
-        app:layout_constraintBottom_toBottomOf="@+id/btnFixVote"
-        app:layout_constraintEnd_toStartOf="@+id/tvTimeStampSingle"
-        app:layout_constraintStart_toEndOf="@+id/btnShareIssue"
-        app:layout_constraintTop_toTopOf="@+id/btnFixVote"
-        app:layout_constraintVertical_bias="0.0" />
+                    <ImageView
+                        android:id="@+id/ivIssueSingle"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:scaleType="centerCrop"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageButton
-        android:id="@+id/btnShareIssue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:background="#00FFFFFF"
-        android:src="@drawable/ic_share_issue"
-        app:layout_constraintBottom_toBottomOf="@+id/btnFixVote"
-        app:layout_constraintEnd_toStartOf="@+id/btnCommentIssue"
-        app:layout_constraintStart_toStartOf="@+id/ivIssueSingle"
-        app:layout_constraintTop_toTopOf="@+id/btnFixVote" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/tvFixVotes"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:gravity="right"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/btnFixVote"
-        app:layout_constraintTop_toBottomOf="@+id/btnFixVote" />
+            </androidx.cardview.widget.CardView>
 
-    <TextView
-        android:id="@+id/tvAddressSingle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/tvFixVotes"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnCommentIssue" />
+            <ProgressBar
+                android:id="@+id/pbFixVotes"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/tvFixVotes"
+                app:layout_constraintEnd_toStartOf="@+id/btnFixVote"
+                app:layout_constraintStart_toEndOf="@+id/cvRoundedCorners"
+                app:layout_constraintTop_toTopOf="@+id/cvRoundedCorners" />
 
-    <TextView
-        android:id="@+id/tvTimeStampSingle"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/btnCommentIssue"
-        app:layout_constraintEnd_toStartOf="@+id/btnFixVote"
-        app:layout_constraintStart_toEndOf="@+id/btnCommentIssue"
-        app:layout_constraintTop_toTopOf="@+id/btnCommentIssue" />
+            <TextView
+                android:id="@+id/tvTitleSingle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="8dp"
+                android:gravity="start"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/cvRoundedCorners"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
+            <ImageButton
+                android:id="@+id/btnFixVote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:background="#00FFFFFF"
+                android:src="@drawable/ic_fix_issue"
+                app:layout_constraintEnd_toEndOf="@+id/tvTitleSingle"
+                app:layout_constraintStart_toEndOf="@+id/pbFixVotes"
+                app:layout_constraintTop_toTopOf="@+id/pbFixVotes" />
+
+            <TextView
+                android:id="@+id/tvFixVotes"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:gravity="right"
+                app:layout_constraintBottom_toTopOf="@+id/tvAddressSingle"
+                app:layout_constraintEnd_toEndOf="@+id/btnFixVote"
+                app:layout_constraintTop_toBottomOf="@+id/btnFixVote" />
+
+            <TextView
+                android:id="@+id/tvAddressSingle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/tvTimeStampSingle"
+                app:layout_constraintEnd_toEndOf="@+id/btnFixVote"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/pbFixVotes"
+                app:layout_constraintTop_toBottomOf="@+id/tvFixVotes" />
+
+            <TextView
+                android:id="@+id/tvTimeStampSingle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="@+id/tvAddressSingle"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/tvAddressSingle"
+                app:layout_constraintTop_toBottomOf="@+id/tvAddressSingle" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

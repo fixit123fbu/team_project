@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -27,7 +30,6 @@ import com.example.fixit.Issue;
 import com.example.fixit.Location;
 import com.example.fixit.R;
 import com.google.android.gms.common.api.Status;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.libraries.places.api.Places;
@@ -41,6 +43,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
@@ -67,6 +70,7 @@ public class PostFragment extends Fragment {
     private FirebaseDatabase mDatabase;
     private Issue issue;
     private Uri uriPictureIssue;
+    private Bitmap bitmapFormat;
     private File photoFile;
     private Location aux;
 
@@ -165,7 +169,8 @@ public class PostFragment extends Fragment {
         // Adjust issue values
         mPostReference.setValue(issue);
         // Upload image to storage
-        upLoadFileToStorage(key);
+//        upLoadFileToStorage(key);
+       uploadBytesToStorage(key, bitmapFormat);
     }
 
     // Trigger gallery selection for a photo
@@ -182,7 +187,7 @@ public class PostFragment extends Fragment {
         }
     }
 
-    private File createImageFile() throws IOException {
+    private File createImageFile(String fileName) throws IOException {
         // Create an image file name
         File storageDir =new File(getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES), APP_TAG);
         // Create the storage directory if it does not exist
@@ -190,8 +195,7 @@ public class PostFragment extends Fragment {
             Toast.makeText(getContext(), "Failed to create directory", Toast.LENGTH_LONG).show();
         }
         // Return the file target for the photo based on filename
-        File image = new File(storageDir.getPath() + File.separator + photoFileName);
-
+        File image = new File(storageDir.getPath() + File.separator + fileName);
         return image;
     }
 
@@ -202,7 +206,7 @@ public class PostFragment extends Fragment {
             // Create the File where the photo should go
             photoFile = null;
             try {
-                photoFile = createImageFile();
+                photoFile = createImageFile(photoFileName);
             } catch (IOException ex) {
                 // Error occurred while creating the File
             }
@@ -217,19 +221,50 @@ public class PostFragment extends Fragment {
         }
     }
 
+    public Bitmap rotateBitmapOrientation(String photoFilePath) {
+        // Create and configure BitmapFactory
+        BitmapFactory.Options bounds = new BitmapFactory.Options();
+        bounds.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(photoFilePath, bounds);
+        BitmapFactory.Options opts = new BitmapFactory.Options();
+        Bitmap bm = BitmapFactory.decodeFile(photoFilePath, opts);
+        // Read EXIF Data
+        ExifInterface exif = null;
+        try {
+            exif = new ExifInterface(photoFilePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String orientString = exif.getAttribute(ExifInterface.TAG_ORIENTATION);
+        int orientation = orientString != null ? Integer.parseInt(orientString) : ExifInterface.ORIENTATION_NORMAL;
+        int rotationAngle = 0;
+        if (orientation == ExifInterface.ORIENTATION_ROTATE_90) rotationAngle = 90;
+        if (orientation == ExifInterface.ORIENTATION_ROTATE_180) rotationAngle = 180;
+        if (orientation == ExifInterface.ORIENTATION_ROTATE_270) rotationAngle = 270;
+        // Rotate Bitmap
+        Matrix matrix = new Matrix();
+        matrix.setRotate(rotationAngle, (float) bm.getWidth() / 2, (float) bm.getHeight() / 2);
+        Bitmap rotatedBitmap = Bitmap.createBitmap(bm, 0, 0, bounds.outWidth, bounds.outHeight, matrix, true);
+        // Return result
+        return rotatedBitmap;
+    }
+
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(resultCode == Activity.RESULT_OK && data != null) {
             if(requestCode == PICK_PHOTO_CODE) {
                 uriPictureIssue = data.getData();
                 ivPreview.setImageURI(uriPictureIssue);
+                bitmapFormat =((BitmapDrawable)ivPreview.getDrawable()).getBitmap();
                 Toast.makeText(getContext(), "Upload from Gallery", Toast.LENGTH_LONG).show();
             }
             else if(requestCode == REQUEST_IMAGE_CAPTURE){
                 // by this point we have the camera photo on disk
-                Bitmap takenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
+                bitmapFormat = rotateBitmapOrientation(photoFile.getAbsolutePath());
                 // Load the taken image into a preview
-                ivPreview.setImageBitmap(takenImage);
+                ivPreview.setImageBitmap(bitmapFormat);
+//                uriPictureIssue = getImageUri(getContext(), takenImage);
                 Toast.makeText(getContext(), "Upload from Camera", Toast.LENGTH_LONG).show();
             }
         }else{
@@ -258,6 +293,26 @@ public class PostFragment extends Fragment {
         else{
             Toast.makeText(getContext(), "Select an image before issueing", Toast.LENGTH_LONG).show();
         }
+    }
+
+    public void uploadBytesToStorage(String key, Bitmap bitmap){
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] data = baos.toByteArray();
+        StorageReference mByteseRef = mStorage.getReference().child(IMAGE_STORAGE_ROUTE + key + IMAGE_FORMAT);
+        UploadTask uploadTask = mByteseRef.putBytes(data);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                Toast.makeText(getContext(), "Uploading failed", Toast.LENGTH_LONG).show();
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Toast.makeText(getContext(), "Uploaded", Toast.LENGTH_LONG).show();
+
+            }
+        });
     }
 
 
