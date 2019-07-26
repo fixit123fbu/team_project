@@ -8,10 +8,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import com.example.fixit.fragments.MapFragment;
-import com.example.fixit.fragments.PostFragment;
-import com.example.fixit.fragments.ProfileFragment;
-import com.example.fixit.fragments.TimelineFragment;
+import com.example.fixit.Fragments_Bottom.MapFragment;
+import com.example.fixit.Fragments_Bottom.PostFragment;
+import com.example.fixit.Fragments_Bottom.ProfileFragment;
+import com.example.fixit.Fragments_Bottom.TimelineFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class UserActivity extends AppCompatActivity {

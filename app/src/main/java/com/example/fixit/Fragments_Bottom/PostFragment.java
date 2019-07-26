@@ -1,4 +1,4 @@
-package com.example.fixit.fragments;
+package com.example.fixit.Fragments_Bottom;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -26,8 +26,8 @@ import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
-import com.example.fixit.Issue;
-import com.example.fixit.Location;
+import com.example.fixit.Models.Issue;
+import com.example.fixit.Models.Location;
 import com.example.fixit.R;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -57,7 +57,9 @@ public class PostFragment extends Fragment {
     private static final String IMAGE_FORMAT = ".jpg";
     static final int REQUEST_IMAGE_CAPTURE = 1;
     public final String APP_TAG = "MyCustomApp";
+    private final String places_api_key =  getString(R.string.places_api_key);
     public String photoFileName = "photo.jpg";
+
 
     private ImageButton btnPickFromGallery;
     private ImageButton btnTakePicture;
@@ -72,7 +74,7 @@ public class PostFragment extends Fragment {
     private Uri uriPictureIssue;
     private Bitmap bitmapFormat;
     private File photoFile;
-    private Location aux;
+    private Location location;
 
 
 
@@ -92,7 +94,7 @@ public class PostFragment extends Fragment {
         etDescription = view.findViewById(R.id.etDescription);
         btnSubmit = view.findViewById(R.id.btnSubmit);
         etTitle = view.findViewById(R.id.etTitle);
-        aux = null;
+        location = null;
 
 
         // Initialize Storage
@@ -123,11 +125,11 @@ public class PostFragment extends Fragment {
         });
 
         if (!Places.isInitialized()) {
-            Places.initialize(getContext(), "AIzaSyBR_HirBjq-d46IBvG40f16aqHJ20LHoSw\n");
+            Places.initialize(getContext(), places_api_key);
         }
 
         // Initialize Places.
-        Places.initialize(getContext(), "AIzaSyBR_HirBjq-d46IBvG40f16aqHJ20LHoSw\n");
+        Places.initialize(getContext(), places_api_key);
 
 
         // Create a new Places client instance.
@@ -143,8 +145,8 @@ public class PostFragment extends Fragment {
             @Override
             public void onPlaceSelected(@NonNull Place place) {
                 // TODO: Get info about the selected place.
-                aux = new Location(place.getLatLng().latitude, place.getLatLng().longitude, place.getAddress(), place.getName());
-                Toast.makeText(getContext(), aux.getName() + " Success!!", Toast.LENGTH_LONG).show();
+                location = new Location(place.getLatLng().latitude, place.getLatLng().longitude, place.getAddress(), place.getName());
+                Toast.makeText(getContext(), location.getName() + " Success!!", Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -165,7 +167,7 @@ public class PostFragment extends Fragment {
         //Extract information necessary to create the issue
         String description = etDescription.getText().toString();
         String title = etTitle.getText().toString();
-        issue = new Issue(title, key, description, aux);
+        issue = new Issue(title, key, description, location);
         // Adjust issue values
         mPostReference.setValue(issue);
         // Upload image to storage

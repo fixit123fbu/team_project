@@ -56,6 +56,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginBottom="16dp"
+                android:fontFamily="@font/cabin"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/vpImageDetails"
@@ -119,8 +120,8 @@
                 android:text="Urgency"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/sbUrgency"
-                app:layout_constraintStart_toStartOf="@+id/tvDescription"
-                app:layout_constraintTop_toBottomOf="@+id/tvDescription" />
+                app:layout_constraintStart_toStartOf="@+id/tvDescriptionDetails"
+                app:layout_constraintTop_toBottomOf="@+id/tvDescriptionDetails" />
 
             <TextView
                 android:id="@+id/tvUtility"
@@ -140,12 +141,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
+                android:gravity="end"
                 app:layout_constraintBottom_toTopOf="@+id/tvLocationHeader"
                 app:layout_constraintEnd_toEndOf="@+id/btnFixVoteDetails"
                 app:layout_constraintTop_toBottomOf="@+id/pbDetails" />
 
             <TextView
-                android:id="@+id/tvDescription"
+                android:id="@+id/tvDescriptionDetails"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -174,6 +176,8 @@
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
@@ -186,13 +190,25 @@
                 android:id="@+id/tvLocationHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
                 android:layout_marginBottom="8dp"
+                android:fontFamily="@font/cabin"
                 android:text="Location"
                 android:textSize="24sp"
-                app:layout_constraintBottom_toTopOf="@+id/tvDescriptionHeader"
+                app:layout_constraintBottom_toTopOf="@+id/fragMap"
                 app:layout_constraintStart_toStartOf="@+id/pbDetails"
                 app:layout_constraintTop_toBottomOf="@+id/tvTimestampDetails" />
+
+            <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/fragMap"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                app:layout_constraintBottom_toTopOf="@id/tvDescriptionHeader"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvLocationHeader"
+                tools:context=".MapsActivity" />
 
             <TextView
                 android:id="@+id/tvDescriptionHeader"
@@ -200,11 +216,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
+                android:fontFamily="@font/cabin"
                 android:text="Description"
                 android:textSize="24sp"
-                app:layout_constraintBottom_toTopOf="@+id/tvDescription"
+                app:layout_constraintBottom_toTopOf="@+id/tvDescriptionDetails"
                 app:layout_constraintStart_toStartOf="@+id/tvLocationHeader"
-                app:layout_constraintTop_toBottomOf="@+id/tvLocationHeader" />
+                app:layout_constraintTop_toBottomOf="@+id/fragMap" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

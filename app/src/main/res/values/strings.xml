@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">FIXIT</string>
-    <string name="api_autocomplete_key">AIzaSyBR_HirBjq-d46IBvG40f16aqHJ20LHoSw</string>
     <string name="let_s_fix">Let\'s fix.</string>
+    <string name="places_api_key">AIzaSyBR_HirBjq-d46IBvG40f16aqHJ20LHoSw</string>
 </resources>

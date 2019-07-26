@@ -1,4 +1,4 @@
-package com.example.fixit;
+package com.example.fixit.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import com.example.fixit.R;
 
 public class PagerAdapter extends androidx.viewpager.widget.PagerAdapter {
 

@@ -1,4 +1,4 @@
-package com.example.fixit;
+package com.example.fixit.Models;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,6 +13,8 @@ import androidx.annotation.RequiresApi;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -25,6 +27,7 @@ import java.util.Date;
 
 public class Issue implements Parcelable {
 
+    private final static String POST_ROUTE = "posts";
     private final static String IMAGE_STORAGE_ROUTE = "images/";
     private static final String IMAGE_FORMAT = ".jpg";
 
@@ -96,6 +99,12 @@ public class Issue implements Parcelable {
 
     public void setFixvotes(Integer fixvotes) {
         this.fixvotes = fixvotes;
+        auxSetFixVotes(fixvotes);
+    }
+
+    public void auxSetFixVotes(Integer val){
+        DatabaseReference mPostReference = FirebaseDatabase.getInstance().getReference().child(POST_ROUTE).child(getIssueID());
+        mPostReference.child("fixvotes").setValue(val);
     }
 
     public Location getLocation() {
