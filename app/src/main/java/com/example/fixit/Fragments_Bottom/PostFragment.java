@@ -47,6 +47,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 
 public class PostFragment extends Fragment {
 
@@ -55,9 +56,10 @@ public class PostFragment extends Fragment {
     private final static String POST_ROUTE = "posts";
     private final static String IMAGE_STORAGE_ROUTE = "images/";
     private static final String IMAGE_FORMAT = ".jpg";
+    private String places_api_key =  getString(R.string.places_api_key);
     static final int REQUEST_IMAGE_CAPTURE = 1;
+    private static final int SELECT_PICTURES = 2;
     public final String APP_TAG = "MyCustomApp";
-    private final String places_api_key =  getString(R.string.places_api_key);
     public String photoFileName = "photo.jpg";
 
 
@@ -75,6 +77,7 @@ public class PostFragment extends Fragment {
     private Bitmap bitmapFormat;
     private File photoFile;
     private Location location;
+    private List<Bitmap> images;
 
 
 
@@ -106,7 +109,7 @@ public class PostFragment extends Fragment {
         btnPickFromGallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onPickPhoto();
+               pickMultiplePics();
             }
         });
 
@@ -189,6 +192,13 @@ public class PostFragment extends Fragment {
         }
     }
 
+    public void pickMultiplePics(){
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("image/*");
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), SELECT_PICTURES);
+    }
+
     private File createImageFile(String fileName) throws IOException {
         // Create an image file name
         File storageDir =new File(getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES), APP_TAG);
@@ -254,25 +264,44 @@ public class PostFragment extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode == Activity.RESULT_OK && data != null) {
-            if(requestCode == PICK_PHOTO_CODE) {
-                uriPictureIssue = data.getData();
-                ivPreview.setImageURI(uriPictureIssue);
-                bitmapFormat =((BitmapDrawable)ivPreview.getDrawable()).getBitmap();
-                Toast.makeText(getContext(), "Upload from Gallery", Toast.LENGTH_LONG).show();
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == SELECT_PICTURES) {
+            if(resultCode == Activity.RESULT_OK) {
+                if(data.getClipData() != null) {
+                    int count = data.getClipData().getItemCount(); //evaluate the count before the for loop --- otherwise, the count is evaluated every loop.
+                    Toast.makeText(getContext(), count + "", Toast.LENGTH_LONG).show();
+                    for(int i = 0; i < count; i++) {
+                        Uri imageUri = data.getClipData().getItemAt(i).getUri();
+                        ivPreview.setImageURI(imageUri);
+                        images.add(((BitmapDrawable)ivPreview.getDrawable()).getBitmap());
+                    }
+                }
+            } else if(data.getData() != null) {
+                String imagePath = data.getData().getPath();
+                //do something with the image (save it to some directory or whatever you need to do with it here)
             }
-            else if(requestCode == REQUEST_IMAGE_CAPTURE){
-                // by this point we have the camera photo on disk
-                bitmapFormat = rotateBitmapOrientation(photoFile.getAbsolutePath());
-                // Load the taken image into a preview
-                ivPreview.setImageBitmap(bitmapFormat);
-//                uriPictureIssue = getImageUri(getContext(), takenImage);
-                Toast.makeText(getContext(), "Upload from Camera", Toast.LENGTH_LONG).show();
-            }
-        }else{
-            Toast.makeText(getContext(), "Error selecting image", Toast.LENGTH_LONG).show();
         }
     }
+
+//        if(resultCode == Activity.RESULT_OK && data != null) {
+//            if(requestCode == PICK_PHOTO_CODE) {
+//                uriPictureIssue = data.getData();
+//                ivPreview.setImageURI(uriPictureIssue);
+//                bitmapFormat =((BitmapDrawable)ivPreview.getDrawable()).getBitmap();
+//                Toast.makeText(getContext(), "Upload from Gallery", Toast.LENGTH_LONG).show();
+//            }
+//            else if(requestCode == REQUEST_IMAGE_CAPTURE){
+//                // by this point we have the camera photo on disk
+//                bitmapFormat = rotateBitmapOrientation(photoFile.getAbsolutePath());
+//                // Load the taken image into a preview
+//                ivPreview.setImageBitmap(bitmapFormat);
+////                uriPictureIssue = getImageUri(getContext(), takenImage);
+//                Toast.makeText(getContext(), "Upload from Camera", Toast.LENGTH_LONG).show();
+//            }
+//        }else{
+//            Toast.makeText(getContext(), "Error selecting image", Toast.LENGTH_LONG).show();
+//        }
+//    }
 
     public void upLoadFileToStorage(String key){
         if(uriPictureIssue != null) {
