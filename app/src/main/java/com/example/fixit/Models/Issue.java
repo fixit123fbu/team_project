@@ -31,35 +31,43 @@ public class Issue implements Parcelable {
     private final static String IMAGE_STORAGE_ROUTE = "images/";
     private static final String IMAGE_FORMAT = ".jpg";
 
+
     String issueID;
     Date date;
     String title;
     String description;
     Integer fixvotes;
+    Integer imagesCont;
     Location location;
 
     public Issue(){}
 
-    public Issue(String title, String key, String description, Location location){
+    public Issue(String title, String key, String description, Location location, Integer imagesCont){
         this.title = title;
         this.location = location;
         this.fixvotes = 0;
         this.date = new Date();
         this.description = description;
         this.issueID = key;
+        this.imagesCont = imagesCont;
     }
 
 
     protected Issue(Parcel in) {
+        location = in.readParcelable(Location.class.getClassLoader());
         issueID = in.readString();
         title = in.readString();
         description = in.readString();
+        if (in.readByte() == 0) {
+            imagesCont = null;
+        } else {
+            imagesCont = in.readInt();
+        }
         if (in.readByte() == 0) {
             fixvotes = null;
         } else {
             fixvotes = in.readInt();
         }
-        location = in.readParcelable(Location.class.getClassLoader());
     }
 
     public static final Creator<Issue> CREATOR = new Creator<Issue>() {
@@ -81,16 +89,22 @@ public class Issue implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeParcelable(location, flags);
         dest.writeString(issueID);
         dest.writeString(title);
         dest.writeString(description);
+        if (imagesCont == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(imagesCont);
+        }
         if (fixvotes == null) {
             dest.writeByte((byte) 0);
         } else {
             dest.writeByte((byte) 1);
             dest.writeInt(fixvotes);
         }
-        dest.writeParcelable(location, flags);
     }
 
     public Integer getFixvotes() {
@@ -157,21 +171,21 @@ public class Issue implements Parcelable {
         return location.getLongitude();
     }
 
-    public void downloadFile(final ImageView auxImage) throws IOException {
+    public Integer getImagesCont(){return imagesCont;}
+
+    public void downloadFile(Integer index, final ImageView ivTemp) throws IOException {
         String key = getIssueID();
         final File issueImage = File.createTempFile("images", "jpg");
-        StorageReference mImageRef = FirebaseStorage.getInstance().getReference().child(IMAGE_STORAGE_ROUTE + key + IMAGE_FORMAT);
+        StorageReference mImageRef = FirebaseStorage.getInstance().getReference().child(IMAGE_STORAGE_ROUTE + key + "/" + index + IMAGE_FORMAT);;
         mImageRef.getFile(issueImage)
                 .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                         // Successfully downloaded data to local file
                         // by this point we have the camera photo on disk
-                        Bitmap imageFile = BitmapFactory.decodeFile(issueImage.getAbsolutePath());
+                         ivTemp.setImageBitmap(BitmapFactory.decodeFile(issueImage.getAbsolutePath()));
                         // Load the taken image into a preview
-                        auxImage.setImageBitmap(imageFile);
                     }
-
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
@@ -179,6 +193,7 @@ public class Issue implements Parcelable {
             }
         });
     }
+
 
     public void downloadBytes(final ImageView imageView){
         final long ONE_MEGABYTE = 1024 * 1024;

@@ -1,4 +1,4 @@
-package com.example.fixit;
+package com.example.fixit.Activities;
 
 import android.os.Bundle;
 import android.widget.SeekBar;
@@ -9,6 +9,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.fixit.Adapters.PagerAdapter;
 import com.example.fixit.Models.Issue;
+import com.example.fixit.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -30,7 +31,6 @@ public class DetailsActivity extends FragmentActivity implements OnMapReadyCallb
     TextView tvTimestampDetails;
     TextView tvDescriptionDetails;
     ViewPager viewPager;
-    int images[] = {R.drawable.camaro, R.drawable.datsun, R.drawable.corvette, R.drawable.mustang};
     PagerAdapter pagerAdapter;
 
 
@@ -46,28 +46,22 @@ public class DetailsActivity extends FragmentActivity implements OnMapReadyCallb
         tvTimestampDetails = findViewById(R.id.tvTimestampDetails);
         tvDescriptionDetails = findViewById(R.id.tvDescriptionDetails);
 
-        pagerAdapter = new PagerAdapter(DetailsActivity.this, images);
-        viewPager.setAdapter(pagerAdapter);
-
         issue = getIntent().getParcelableExtra(INTENT_ISSUE_EXTRA);
         tvTitleDetails.setText(issue.getTitle());
         tvTimestampDetails.setText(getIntent().getStringExtra(INTENT_DATE_EXTRA));
         tvDescriptionDetails.setText(issue.getDescription());
 
+        pagerAdapter = new PagerAdapter(DetailsActivity.this, issue);
+        viewPager.setAdapter(pagerAdapter);
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.fragMap);
         mapFragment.getMapAsync(this);
 
-//        try {
-//            issue.downloadFile(ivIssueDetails);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
     }
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        // Add a marker in Sydney, Australia, and move the camera.
         LatLng marker = new LatLng(issue.getLatitude(), issue.getLongitude());
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marker, DEFAULT_ZOOM));
     }

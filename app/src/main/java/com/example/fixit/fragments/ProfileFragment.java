@@ -1,4 +1,4 @@
-package com.example.fixit.Fragments_Bottom;
+package com.example.fixit.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

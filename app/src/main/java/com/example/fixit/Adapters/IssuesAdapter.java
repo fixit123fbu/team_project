@@ -15,10 +15,11 @@ import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.fixit.DetailsActivity;
+import com.example.fixit.Activities.DetailsActivity;
 import com.example.fixit.Models.Issue;
 import com.example.fixit.R;
 
+import java.io.IOException;
 import java.util.List;
 
 public class IssuesAdapter extends RecyclerView.Adapter<IssuesAdapter.ViewHolder>{
@@ -41,6 +42,7 @@ public class IssuesAdapter extends RecyclerView.Adapter<IssuesAdapter.ViewHolder
         return new ViewHolder(view, this);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Issue issue = issues.get(position);
@@ -77,6 +79,7 @@ public class IssuesAdapter extends RecyclerView.Adapter<IssuesAdapter.ViewHolder
             cvWholeIssue = itemView.findViewById(R.id.cvWholeIssue);
             btnFix = itemView.findViewById(R.id.btnFixVote);
             cvWholeIssue.setOnClickListener(new View.OnClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.O)
                 @Override
                 public void onClick(View v) {
                     Issue tempIssue = issues.get(getAdapterPosition());
@@ -87,6 +90,7 @@ public class IssuesAdapter extends RecyclerView.Adapter<IssuesAdapter.ViewHolder
                 }
             });
             btnFix.setOnClickListener(new View.OnClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.O)
                 @Override
                 public void onClick(View v) {
                     Integer position = getAdapterPosition();
@@ -103,12 +107,11 @@ public class IssuesAdapter extends RecyclerView.Adapter<IssuesAdapter.ViewHolder
             tvTimestamp.setText(issue.formarDate());
             tvFixvotes.setText(issue.getFixvotes()+"");
             tvAddress.setText(issue.formatAddress());
-//            issue.downloadBytes(ivIssue);
-//            try {
-//                issue.downloadFile(ivIssue);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
+            try {
+                issue.downloadFile(0, ivIssue);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.example.fixit.Fragments_Bottom;
+package com.example.fixit.fragments;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -76,7 +76,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 for (DataSnapshot issueSnapshot: dataSnapshot.getChildren()) {
                     // TODO: handle the post
                     mIssues.add(issueSnapshot.getValue(Issue.class));
-                    Log.d("getting", issueSnapshot.getValue(Issue.class).getDescription());
                     Log.d("getting", issueSnapshot.getValue(Issue.class).getDescription());
                 }
             }

@@ -8,23 +8,28 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.fixit.Models.Issue;
 import com.example.fixit.R;
+
+import java.io.IOException;
 
 public class PagerAdapter extends androidx.viewpager.widget.PagerAdapter {
 
     Context context;
-    int images[];
+    Issue issue;
     LayoutInflater layoutInflater;
 
-    public PagerAdapter(Context context, int images[]){
+    public PagerAdapter(Context context, Issue issue){
         this.context = context;
-        this.images = images;
+        this.issue = issue;
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
     public int getCount() {
-        return images.length;
+        if(this.issue == null)
+            return 0;
+        return this.issue.getImagesCont();
     }
 
     @Override
@@ -37,7 +42,11 @@ public class PagerAdapter extends androidx.viewpager.widget.PagerAdapter {
         View itemView = layoutInflater.inflate(R.layout.item_pager_adapter, container, false);
 
         ImageView imageView = itemView.findViewById(R.id.ivItemViewPager);
-        imageView.setImageResource(images[position]);
+        try {
+            issue.downloadFile(position, imageView);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         container.addView(itemView);
 
