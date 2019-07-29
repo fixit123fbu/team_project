@@ -12,8 +12,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.fixit.Issue;
-import com.example.fixit.IssuesAdapter;
+import com.example.fixit.Models.Issue;
+import com.example.fixit.Adapters.IssuesAdapter;
 import com.example.fixit.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

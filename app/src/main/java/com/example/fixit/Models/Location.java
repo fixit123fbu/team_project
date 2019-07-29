@@ -1,4 +1,4 @@
-package com.example.fixit;
+package com.example.fixit.Models;
 
 import android.os.Parcel;
 import android.os.Parcelable;

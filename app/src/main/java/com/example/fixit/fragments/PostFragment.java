@@ -6,7 +6,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
-import android.graphics.drawable.BitmapDrawable;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -26,8 +25,8 @@ import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
-import com.example.fixit.Issue;
-import com.example.fixit.Location;
+import com.example.fixit.Models.Issue;
+import com.example.fixit.Models.Location;
 import com.example.fixit.R;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -46,7 +45,9 @@ import com.google.firebase.storage.UploadTask;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class PostFragment extends Fragment {
 
@@ -55,9 +56,12 @@ public class PostFragment extends Fragment {
     private final static String POST_ROUTE = "posts";
     private final static String IMAGE_STORAGE_ROUTE = "images/";
     private static final String IMAGE_FORMAT = ".jpg";
+    private String places_api_key =  "AIzaSyBR_HirBjq-d46IBvG40f16aqHJ20LHoSw\n";
     static final int REQUEST_IMAGE_CAPTURE = 1;
+    private static final int SELECT_PICTURES = 2;
     public final String APP_TAG = "MyCustomApp";
     public String photoFileName = "photo.jpg";
+
 
     private ImageButton btnPickFromGallery;
     private ImageButton btnTakePicture;
@@ -72,7 +76,8 @@ public class PostFragment extends Fragment {
     private Uri uriPictureIssue;
     private Bitmap bitmapFormat;
     private File photoFile;
-    private Location aux;
+    private Location location;
+    private List<Bitmap> images;
 
 
 
@@ -92,7 +97,8 @@ public class PostFragment extends Fragment {
         etDescription = view.findViewById(R.id.etDescription);
         btnSubmit = view.findViewById(R.id.btnSubmit);
         etTitle = view.findViewById(R.id.etTitle);
-        aux = null;
+        location = null;
+        images = new ArrayList<>();
 
 
         // Initialize Storage
@@ -104,7 +110,7 @@ public class PostFragment extends Fragment {
         btnPickFromGallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onPickPhoto();
+               pickMultiplePics();
             }
         });
 
@@ -123,11 +129,11 @@ public class PostFragment extends Fragment {
         });
 
         if (!Places.isInitialized()) {
-            Places.initialize(getContext(), "AIzaSyBR_HirBjq-d46IBvG40f16aqHJ20LHoSw\n");
+            Places.initialize(getContext(), places_api_key);
         }
 
         // Initialize Places.
-        Places.initialize(getContext(), "AIzaSyBR_HirBjq-d46IBvG40f16aqHJ20LHoSw\n");
+        Places.initialize(getContext(), places_api_key);
 
 
         // Create a new Places client instance.
@@ -143,8 +149,8 @@ public class PostFragment extends Fragment {
             @Override
             public void onPlaceSelected(@NonNull Place place) {
                 // TODO: Get info about the selected place.
-                aux = new Location(place.getLatLng().latitude, place.getLatLng().longitude, place.getAddress(), place.getName());
-                Toast.makeText(getContext(), aux.getName() + " Success!!", Toast.LENGTH_LONG).show();
+                location = new Location(place.getLatLng().latitude, place.getLatLng().longitude, place.getAddress(), place.getName());
+                Toast.makeText(getContext(), location.getName() + " Success!!", Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -156,7 +162,6 @@ public class PostFragment extends Fragment {
 
     }
 
-
     private void postIssue() {
         // Create a new issue with a different key
         DatabaseReference mPostReference = mDatabase.getReference().child(POST_ROUTE).push();
@@ -165,12 +170,13 @@ public class PostFragment extends Fragment {
         //Extract information necessary to create the issue
         String description = etDescription.getText().toString();
         String title = etTitle.getText().toString();
-        issue = new Issue(title, key, description, aux);
+        issue = new Issue(title, key, description, location, images.size());
         // Adjust issue values
         mPostReference.setValue(issue);
         // Upload image to storage
-//        upLoadFileToStorage(key);
-       uploadBytesToStorage(key, bitmapFormat);
+        for(int i = 0; i < images.size(); i++){
+            uploadBytesToStorage(i);
+        }
     }
 
     // Trigger gallery selection for a photo
@@ -187,9 +193,17 @@ public class PostFragment extends Fragment {
         }
     }
 
+    public void pickMultiplePics(){
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("image/*");
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "android.intent.action.SEND_MULTIPLE"), SELECT_PICTURES);
+    }
+
     private File createImageFile(String fileName) throws IOException {
         // Create an image file name
-        File storageDir =new File(getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES), APP_TAG);
+        File storageDir = new File(getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES), APP_TAG);
         // Create the storage directory if it does not exist
         if (!storageDir.exists() && !storageDir.mkdirs()){
             Toast.makeText(getContext(), "Failed to create directory", Toast.LENGTH_LONG).show();
@@ -252,24 +266,39 @@ public class PostFragment extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode == Activity.RESULT_OK && data != null) {
-            if(requestCode == PICK_PHOTO_CODE) {
-                uriPictureIssue = data.getData();
-                ivPreview.setImageURI(uriPictureIssue);
-                bitmapFormat =((BitmapDrawable)ivPreview.getDrawable()).getBitmap();
-                Toast.makeText(getContext(), "Upload from Gallery", Toast.LENGTH_LONG).show();
+        super.onActivityResult(requestCode, resultCode, data);
+        Bitmap aux = null;
+        if(resultCode == Activity.RESULT_OK) {
+            if(requestCode == SELECT_PICTURES) {
+                if(data.getClipData() != null) {
+                    int count = data.getClipData().getItemCount(); //evaluate the count before the for loop --- otherwise, the count is evaluated every loop.
+                    Toast.makeText(getContext(), count + "", Toast.LENGTH_LONG).show();
+                    for(int i = 0; i < count; i++) {
+                        Uri imageUri = data.getClipData().getItemAt(i).getUri();
+                        try {
+                            aux = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), imageUri);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        images.add(aux);
+                    }
+                }
+                else if(data.getData() != null) {
+                    try {
+                        aux = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), data.getData());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    images.add(aux);
+                }
             }
             else if(requestCode == REQUEST_IMAGE_CAPTURE){
                 // by this point we have the camera photo on disk
-                bitmapFormat = rotateBitmapOrientation(photoFile.getAbsolutePath());
-                // Load the taken image into a preview
-                ivPreview.setImageBitmap(bitmapFormat);
-//                uriPictureIssue = getImageUri(getContext(), takenImage);
-                Toast.makeText(getContext(), "Upload from Camera", Toast.LENGTH_LONG).show();
+                aux = rotateBitmapOrientation(photoFile.getAbsolutePath());
+                images.add(aux);
             }
-        }else{
-            Toast.makeText(getContext(), "Error selecting image", Toast.LENGTH_LONG).show();
         }
+        ivPreview.setImageBitmap(aux);
     }
 
     public void upLoadFileToStorage(String key){
@@ -295,11 +324,13 @@ public class PostFragment extends Fragment {
         }
     }
 
-    public void uploadBytesToStorage(String key, Bitmap bitmap){
+    public void uploadBytesToStorage(int index){
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        String key = issue.getIssueID();
+        StorageReference mByteseRef;
+        mByteseRef = mStorage.getReference().child(IMAGE_STORAGE_ROUTE + key + "/" + index + IMAGE_FORMAT);
+        images.get(index).compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] data = baos.toByteArray();
-        StorageReference mByteseRef = mStorage.getReference().child(IMAGE_STORAGE_ROUTE + key + IMAGE_FORMAT);
         UploadTask uploadTask = mByteseRef.putBytes(data);
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override

@@ -23,9 +23,9 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:appComponentFactory">
-        <activity android:name=".DetailsActivity"></activity>
-        <activity android:name=".UserActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".Activities.DetailsActivity"></activity>
+        <activity android:name=".Activities.UserActivity" />
+        <activity android:name=".Activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

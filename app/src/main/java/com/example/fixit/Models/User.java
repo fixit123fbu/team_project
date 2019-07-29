@@ -1,4 +1,4 @@
-package com.example.fixit;
+package com.example.fixit.Models;
 
 public class User {
 
