@@ -4,19 +4,19 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.fixit.Adapters.FragPagerAdapter;
 import com.example.fixit.R;
-import com.example.fixit.fragments.MapFragment;
-import com.example.fixit.fragments.PostFragment;
-import com.example.fixit.fragments.ProfileFragment;
-import com.example.fixit.fragments.TimelineFragment;
+import com.example.fixit.fragments.BottomNavFragments.MapFragment;
+import com.example.fixit.fragments.PostingFragments.PostWizard;
+import com.example.fixit.fragments.BottomNavFragments.ProfileFragment;
+import com.example.fixit.fragments.BottomNavFragments.TimelineFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class UserActivity extends AppCompatActivity {
+public class UserActivity extends FragmentActivity {
 
     private BottomNavigationView bottomNavigationView;
     private ViewPager vpFragSlide;
@@ -35,7 +35,7 @@ public class UserActivity extends AppCompatActivity {
         adapter.addFragment(new TimelineFragment());
         adapter.addFragment(new MapFragment());
         adapter.addFragment(new ProfileFragment());
-        adapter.addFragment(new PostFragment());
+        adapter.addFragment(new PostWizard());
         vpFragSlide.setAdapter(adapter);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {

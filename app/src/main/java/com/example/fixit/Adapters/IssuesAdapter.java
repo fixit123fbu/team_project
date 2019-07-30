@@ -19,7 +19,6 @@ import com.example.fixit.Activities.DetailsActivity;
 import com.example.fixit.Models.Issue;
 import com.example.fixit.R;
 
-import java.io.IOException;
 import java.util.List;
 
 public class IssuesAdapter extends RecyclerView.Adapter<IssuesAdapter.ViewHolder>{
@@ -107,11 +106,11 @@ public class IssuesAdapter extends RecyclerView.Adapter<IssuesAdapter.ViewHolder
             tvTimestamp.setText(issue.formarDate());
             tvFixvotes.setText(issue.getFixvotes()+"");
             tvAddress.setText(issue.formatAddress());
-            try {
-                issue.downloadFile(0, ivIssue);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+//            try {
+//                issue.downloadFile(0, ivIssue);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
         }
     }
 }
