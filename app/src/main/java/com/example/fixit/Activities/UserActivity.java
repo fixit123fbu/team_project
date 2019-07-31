@@ -16,7 +16,12 @@ import com.example.fixit.fragments.BottomNavFragments.ProfileFragment;
 import com.example.fixit.fragments.BottomNavFragments.TimelineFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class UserActivity extends FragmentActivity {
+public class UserActivity extends FragmentActivity implements PostWizard.OnFinishedPostingListener {
+
+    private final int TIME_POS = 0;
+    private final int MAP_POS = 1;
+    private final int PRO_POS = 2;
+    private final int POST_POS = 3;
 
     private BottomNavigationView bottomNavigationView;
     private ViewPager vpFragSlide;
@@ -42,16 +47,15 @@ public class UserActivity extends FragmentActivity {
 
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//                Fragment fragment = null;
                 switch (item.getItemId()) {
                     case R.id.action_timeline:
-                        vpFragSlide.setCurrentItem(0);
+                        vpFragSlide.setCurrentItem(TIME_POS);
                         break;
                     case R.id.action_profile:
-                        vpFragSlide.setCurrentItem(2);
+                        vpFragSlide.setCurrentItem(PRO_POS);
                         break;
                     case R.id.action_post:
-                        vpFragSlide.setCurrentItem(3);
+                        vpFragSlide.setCurrentItem(POST_POS);
                         break;
                 }
 //                fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
@@ -60,7 +64,11 @@ public class UserActivity extends FragmentActivity {
         });
 
         // Sets default selection
-        vpFragSlide.setCurrentItem(0);
-//        bottomNavigationView.setSelectedItemId(R.id.action_timeline);
+        vpFragSlide.setCurrentItem(POST_POS);
+    }
+
+    @Override
+    public void backToHome() {
+        vpFragSlide.setCurrentItem(TIME_POS);
     }
 }
