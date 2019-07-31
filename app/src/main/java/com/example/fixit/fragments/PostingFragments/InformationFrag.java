@@ -30,4 +30,13 @@ public class InformationFrag extends Fragment {
         ivHeaderInfo = view.findViewById(R.id.ivHeaderInfo);
         return view;
     }
+
+    public String getTitle(){
+        String s = etTitleInfo.getText().toString();
+        return s;
+    }
+
+    public String getDescription(){
+        return etDescriptionInfo.getText().toString();
+    }
 }

@@ -1,7 +1,10 @@
 package com.example.fixit.fragments.PostingFragments;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -31,9 +34,12 @@ import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 
-
-
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
+
 
 public class LocationFrag extends Fragment{
 
@@ -41,12 +47,16 @@ public class LocationFrag extends Fragment{
     private float DEFAULT_ZOOM = 15f;
     private String places_api_key =  "AIzaSyBR_HirBjq-d46IBvG40f16aqHJ20LHoSw\n";
     private LatLng currentLatLng;
+    private Geocoder auxGeo;
+    private List<Address> auxAdr = new ArrayList<>();
+    private com.example.fixit.Models.Location issueLocation;
     private GoogleMap map = null;
     private FusedLocationProviderClient fusedLocationClient;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        auxGeo = new Geocoder(getActivity(), Locale.getDefault());
         View v = inflater.inflate(R.layout.location_fragment, container, false);
 
         requestLocationPermissions();
@@ -69,6 +79,7 @@ public class LocationFrag extends Fragment{
     private void initializeMapWithCurrentLocation(){
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.fragMapLoc);
         mapFragment.getMapAsync(new OnMapReadyCallback() {
+            @SuppressLint("MissingPermission")
             @Override
             public void onMapReady(GoogleMap googleMap) {
                 map = googleMap;
@@ -78,7 +89,17 @@ public class LocationFrag extends Fragment{
                     @Override
                     public void onSuccess(Location location) {
                         if (location != null) {
-                            currentLatLng = new LatLng(location.getLatitude(), location.getLongitude());
+                            try {
+                                currentLatLng = new LatLng(location.getLatitude(), location.getLongitude());
+                                auxAdr = auxGeo.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+                                issueLocation = new com.example.fixit.Models.Location(
+                                        location.getLatitude(),
+                                        location.getLongitude(),
+                                        auxAdr.get(0).getAddressLine(0),
+                                        auxAdr.get(0).getFeatureName());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                             map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, DEFAULT_ZOOM));
                             Toast.makeText(getContext(), "Current location loaded", Toast.LENGTH_LONG).show();
                         }
@@ -110,7 +131,11 @@ public class LocationFrag extends Fragment{
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(@NonNull Place place) {
-                // TODO: Get info about the selected place.
+                issueLocation = new com.example.fixit.Models.Location(
+                        place.getLatLng().latitude,
+                        place.getLatLng().longitude,
+                        place.getAddress(),
+                        place.getName());
                 currentLatLng = place.getLatLng();
                 if(map != null)
                     map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, DEFAULT_ZOOM));
@@ -122,6 +147,9 @@ public class LocationFrag extends Fragment{
                 Toast.makeText(getContext(), "Failed to calculate location", Toast.LENGTH_LONG).show();
             }
         });
+    }
 
+    public com.example.fixit.Models.Location getIssueLocation(){
+        return issueLocation;
     }
 }
