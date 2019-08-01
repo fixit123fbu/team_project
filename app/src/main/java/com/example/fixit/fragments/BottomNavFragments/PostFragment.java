@@ -1,4 +1,4 @@
-package com.example.fixit.fragments;
+package com.example.fixit.fragments.BottomNavFragments;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -194,10 +194,12 @@ public class PostFragment extends Fragment {
     }
 
     public void pickMultiplePics(){
+        // Trigger gallery selection for a photo
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*");
         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
         intent.setAction(Intent.ACTION_GET_CONTENT);
+        // Bring up gallery to select a photo
         startActivityForResult(Intent.createChooser(intent, "android.intent.action.SEND_MULTIPLE"), SELECT_PICTURES);
     }
 

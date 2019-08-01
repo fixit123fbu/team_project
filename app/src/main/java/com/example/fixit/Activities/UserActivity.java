@@ -4,19 +4,24 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.fixit.Adapters.FragPagerAdapter;
 import com.example.fixit.R;
-import com.example.fixit.fragments.MapFragment;
-import com.example.fixit.fragments.PostFragment;
-import com.example.fixit.fragments.ProfileFragment;
-import com.example.fixit.fragments.TimelineFragment;
+import com.example.fixit.fragments.BottomNavFragments.MapFragment;
+import com.example.fixit.fragments.PostingFragments.PostWizard;
+import com.example.fixit.fragments.BottomNavFragments.ProfileFragment;
+import com.example.fixit.fragments.BottomNavFragments.TimelineFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class UserActivity extends AppCompatActivity {
+public class UserActivity extends FragmentActivity implements PostWizard.OnFinishedPostingListener {
+
+    private final int TIME_POS = 0;
+    private final int MAP_POS = 1;
+    private final int PRO_POS = 2;
+    private final int POST_POS = 3;
 
     private BottomNavigationView bottomNavigationView;
     private ViewPager vpFragSlide;
@@ -35,23 +40,22 @@ public class UserActivity extends AppCompatActivity {
         adapter.addFragment(new TimelineFragment());
         adapter.addFragment(new MapFragment());
         adapter.addFragment(new ProfileFragment());
-        adapter.addFragment(new PostFragment());
+        adapter.addFragment(new PostWizard());
         vpFragSlide.setAdapter(adapter);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
 
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//                Fragment fragment = null;
                 switch (item.getItemId()) {
                     case R.id.action_timeline:
-                        vpFragSlide.setCurrentItem(0);
+                        vpFragSlide.setCurrentItem(TIME_POS);
                         break;
                     case R.id.action_profile:
-                        vpFragSlide.setCurrentItem(2);
+                        vpFragSlide.setCurrentItem(PRO_POS);
                         break;
                     case R.id.action_post:
-                        vpFragSlide.setCurrentItem(3);
+                        vpFragSlide.setCurrentItem(POST_POS);
                         break;
                 }
 //                fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
@@ -60,7 +64,11 @@ public class UserActivity extends AppCompatActivity {
         });
 
         // Sets default selection
-        vpFragSlide.setCurrentItem(0);
-//        bottomNavigationView.setSelectedItemId(R.id.action_timeline);
+        vpFragSlide.setCurrentItem(POST_POS);
+    }
+
+    @Override
+    public void backToHome() {
+        vpFragSlide.setCurrentItem(TIME_POS);
     }
 }
