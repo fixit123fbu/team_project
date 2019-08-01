@@ -41,26 +41,26 @@
                         android:id="@+id/imageView9"
                         android:layout_width="147dp"
                         android:layout_height="121dp"
-                        app:srcCompat="@drawable/fixup" />
+                        android:src="@drawable/fixup" />
 
                     <ImageView
                         android:id="@+id/imageView11"
                         android:layout_width="133dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        app:srcCompat="@drawable/upboted" />
+                        android:src="@drawable/upboted" />
 
                     <ImageView
                         android:id="@+id/imageView8"
                         android:layout_width="152dp"
                         android:layout_height="121dp"
-                        app:srcCompat="@drawable/badge1" />
+                        android:src="@drawable/badge1" />
 
                     <ImageView
                         android:id="@+id/imageView10"
                         android:layout_width="131dp"
                         android:layout_height="125dp"
-                        app:srcCompat="@drawable/star" />
+                        android:src="@drawable/star" />
 
                 </LinearLayout>
             </HorizontalScrollView>
@@ -114,7 +114,7 @@
                         android:layout_marginLeft="60dp"
                         app:layout_constraintStart_toEndOf="@+id/imageView7"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/help" />
+                        android:src="@drawable/help" />
 
                     <ImageView
                         android:id="@+id/imageView7"
@@ -131,7 +131,7 @@
                         app:layout_constraintStart_toEndOf="@+id/imageView6"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="0.695"
-                        app:srcCompat="@drawable/cf13ed25_9587_4717_b3e5_8ccd4becefab" />
+                        android:src="@drawable/cf13ed25_9587_4717_b3e5_8ccd4becefab" />
 
                     <ImageView
                         android:id="@+id/imageView6"
@@ -147,7 +147,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="1.0"
-                        app:srcCompat="@drawable/screen_1" />
+                        android:src="@drawable/screen_1" />
 
                     <TextView
                         android:id="@+id/textView"

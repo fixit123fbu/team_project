@@ -1,4 +1,4 @@
-package com.example.fixit.fragments.BottomNavFragments;
+package com.example.fixit.fragments.BottomNavFragments.HomeFragment;
 
 import android.os.Bundle;
 import android.util.Log;

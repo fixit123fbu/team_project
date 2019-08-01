@@ -10,10 +10,10 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -26,9 +26,6 @@ import com.example.fixit.Models.Issue;
 import com.example.fixit.R;
 
 import java.util.List;
-
-import static android.content.Context.LAYOUT_INFLATER_SERVICE;
-import static androidx.core.content.ContextCompat.getSystemService;
 
 public class IssuesAdapter extends RecyclerView.Adapter<IssuesAdapter.ViewHolder>{
 
@@ -73,7 +70,7 @@ public class IssuesAdapter extends RecyclerView.Adapter<IssuesAdapter.ViewHolder
         TextView tvAddress;
         CardView cvWholeIssue;
         ImageView btnFix;
-
+        ProgressBar pbFixvotes;
 
 
         public ViewHolder(@NonNull View itemView, final IssuesAdapter adapter) {
@@ -86,6 +83,7 @@ public class IssuesAdapter extends RecyclerView.Adapter<IssuesAdapter.ViewHolder
             tvAddress = itemView.findViewById(R.id.tvAddressSingle);
             cvWholeIssue = itemView.findViewById(R.id.cvWholeIssue);
             btnFix = itemView.findViewById(R.id.btnFixVote);
+            pbFixvotes = itemView.findViewById(R.id.pbFixVotes);
             cvWholeIssue.setOnClickListener(new View.OnClickListener() {
                 @RequiresApi(api = Build.VERSION_CODES.O)
                 @Override
@@ -118,6 +116,7 @@ public class IssuesAdapter extends RecyclerView.Adapter<IssuesAdapter.ViewHolder
             tvTimestamp.setText(issue.formarDate());
             tvFixvotes.setText(issue.getFixvotes()+"");
             tvAddress.setText(issue.formatAddress());
+            pbFixvotes.setProgress(issue.getFixvotes());
 //            try {
 //                issue.downloadFile(0, ivIssue);
 //            } catch (IOException e) {

@@ -3,4 +3,5 @@
     <string name="let_s_fix">Let\'s fix.</string>
     <string name="places_api_key">AIzaSyBR_HirBjq-d46IBvG40f16aqHJ20LHoSw</string>
     <string name="header_info">Write some details about the issue</string>
+    <string name="action_next">Next</string>
 </resources>
