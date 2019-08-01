@@ -64,7 +64,7 @@ public class UserActivity extends FragmentActivity implements PostWizard.OnFinis
         });
 
         // Sets default selection
-        vpFragSlide.setCurrentItem(POST_POS);
+        vpFragSlide.setCurrentItem(TIME_POS);
     }
 
     @Override

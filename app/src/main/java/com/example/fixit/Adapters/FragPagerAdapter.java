@@ -27,6 +27,7 @@ public class FragPagerAdapter extends FragmentPagerAdapter {
         return mFragmentList.size();
     }
 
+
     public void addFragment(Fragment fragment) {
         mFragmentList.add(fragment);
     }

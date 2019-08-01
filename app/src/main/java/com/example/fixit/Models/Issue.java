@@ -23,7 +23,9 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Issue implements Parcelable {
 
@@ -39,6 +41,7 @@ public class Issue implements Parcelable {
     Integer fixvotes;
     Integer imagesCont;
     Location location;
+    List<String> comments;
 
     public Issue(){}
 
@@ -50,24 +53,26 @@ public class Issue implements Parcelable {
         this.description = description;
         this.issueID = key;
         this.imagesCont = imagesCont;
+        this.comments.add("first hardcoded comment");
     }
 
 
     protected Issue(Parcel in) {
-        location = in.readParcelable(Location.class.getClassLoader());
         issueID = in.readString();
         title = in.readString();
         description = in.readString();
-        if (in.readByte() == 0) {
-            imagesCont = null;
-        } else {
-            imagesCont = in.readInt();
-        }
         if (in.readByte() == 0) {
             fixvotes = null;
         } else {
             fixvotes = in.readInt();
         }
+        if (in.readByte() == 0) {
+            imagesCont = null;
+        } else {
+            imagesCont = in.readInt();
+        }
+        location = in.readParcelable(Location.class.getClassLoader());
+        comments = in.createStringArrayList();
     }
 
     public static final Creator<Issue> CREATOR = new Creator<Issue>() {
@@ -81,7 +86,6 @@ public class Issue implements Parcelable {
             return new Issue[size];
         }
     };
-
     @Override
     public int describeContents() {
         return 0;
@@ -89,22 +93,25 @@ public class Issue implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeParcelable(location, flags);
         dest.writeString(issueID);
         dest.writeString(title);
         dest.writeString(description);
-        if (imagesCont == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeInt(imagesCont);
-        }
         if (fixvotes == null) {
             dest.writeByte((byte) 0);
         } else {
             dest.writeByte((byte) 1);
             dest.writeInt(fixvotes);
         }
+        if (imagesCont == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(imagesCont);
+        }
+        dest.writeParcelable(location, flags);
+        comments = new ArrayList<>();
+        comments.add("hardcoded");
+        dest.writeStringList(comments);
     }
 
     public Integer getFixvotes() {
@@ -172,6 +179,14 @@ public class Issue implements Parcelable {
     }
 
     public Integer getImagesCont(){return imagesCont;}
+
+    public List<String> getComments(){
+        return comments;
+    }
+
+    public void addComment(String newComment){
+        comments.add(newComment);
+    }
 
     public void downloadFile(Integer index, final ImageView ivTemp) throws IOException {
         String key = getIssueID();
