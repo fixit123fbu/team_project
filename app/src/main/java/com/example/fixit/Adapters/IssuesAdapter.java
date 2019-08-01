@@ -113,8 +113,8 @@ public class IssuesAdapter extends RecyclerView.Adapter<IssuesAdapter.ViewHolder
         @RequiresApi(api = Build.VERSION_CODES.O)
         public void bind(Issue issue) {
             tvTitle.setText(issue.getTitle());
-            tvTimestamp.setText(issue.formarDate());
-            tvFixvotes.setText(issue.getFixvotes()+"");
+            tvTimestamp.setText("Reported on " + issue.formarDate());
+            tvFixvotes.setText(issue.getFixvotes()+"/50 upvotes");
             tvAddress.setText(issue.formatAddress());
             pbFixvotes.setProgress(issue.getFixvotes());
 //            try {
