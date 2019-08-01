@@ -27,14 +27,13 @@ public class PagerAdapter extends androidx.viewpager.widget.PagerAdapter {
 
     @Override
     public int getCount() {
-        if(this.issue == null)
-            return 0;
+        // Returns the total number ov views in the pager
         return this.issue.getImagesCont();
     }
 
     @Override
     public boolean isViewFromObject(View view, Object object) {
-        return view == ((LinearLayout) object);
+        return view == object;
     }
 
     @Override

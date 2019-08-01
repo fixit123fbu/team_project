@@ -83,26 +83,31 @@ public class PostWizard extends Fragment{
                     position = position - 1;
                     changeChildFrag();
                 }
+                else{
+                    ((OnFinishedPostingListener) getActivity()).backToHome();
+                }
             }
         });
 
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (position < steps.size()){
-                    updateIssue();
+                updateIssue();
+                if (position < steps.size()-1){
                     position = position + 1;
                     changeChildFrag();
+                }
+                else{
+                    postIssue();
+                    ((OnFinishedPostingListener) getActivity()).backToHome();
                 }
             }
         });
     }
 
     private void changeChildFrag(){
-        if(position <= PIC_POS) {
-            FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-            transaction.replace(R.id.flChildFragCont, steps.get(position)).commit();
-        }
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        transaction.replace(R.id.flChildFragCont, steps.get(position)).commit();
     }
 
     private void updateIssue(){
@@ -117,7 +122,6 @@ public class PostWizard extends Fragment{
             case PIC_POS:
                 this.images = ((PicturesFrag)steps.get(position)).getImages();
                 postIssue();
-                ((OnFinishedPostingListener) getActivity()).backToHome();
                 break;
         }
     }
