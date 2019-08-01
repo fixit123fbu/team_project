@@ -15,6 +15,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 public class DetailsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -39,16 +41,15 @@ public class DetailsActivity extends FragmentActivity implements OnMapReadyCallb
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
         viewPager = findViewById(R.id.vpImageDetails);
-        sbUrgency =findViewById(R.id.sbUrgency);
-        sbDanger = findViewById(R.id.sbDanger);
-        sbUtility = findViewById(R.id.sbUtility);
+        sbUrgency =findViewById(R.id.seekBar2);
+        sbDanger = findViewById(R.id.seekBar3);
+        sbUtility = findViewById(R.id.seekBar4);
         tvTitleDetails = findViewById(R.id.tvTitleDetails);
-        tvTimestampDetails = findViewById(R.id.tvTimestampDetails);
         tvDescriptionDetails = findViewById(R.id.tvDescriptionDetails);
 
         issue = getIntent().getParcelableExtra(INTENT_ISSUE_EXTRA);
         tvTitleDetails.setText(issue.getTitle());
-        tvTimestampDetails.setText(getIntent().getStringExtra(INTENT_DATE_EXTRA));
+//        tvTimestampDetails.setText(getIntent().getStringExtra(INTENT_DATE_EXTRA));
         tvDescriptionDetails.setText(issue.getDescription());
 
         pagerAdapter = new PagerAdapter(DetailsActivity.this, issue);
@@ -63,6 +64,7 @@ public class DetailsActivity extends FragmentActivity implements OnMapReadyCallb
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         LatLng marker = new LatLng(issue.getLatitude(), issue.getLongitude());
+        Marker myMark = googleMap.addMarker(new MarkerOptions().title(issue.getTitle()).position(marker));
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marker, DEFAULT_ZOOM));
     }
 }

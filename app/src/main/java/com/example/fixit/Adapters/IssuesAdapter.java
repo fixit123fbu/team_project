@@ -2,12 +2,18 @@ package com.example.fixit.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,6 +27,9 @@ import com.example.fixit.R;
 
 import java.io.IOException;
 import java.util.List;
+
+import static android.content.Context.LAYOUT_INFLATER_SERVICE;
+import static androidx.core.content.ContextCompat.getSystemService;
 
 public class IssuesAdapter extends RecyclerView.Adapter<IssuesAdapter.ViewHolder>{
 
@@ -64,7 +73,7 @@ public class IssuesAdapter extends RecyclerView.Adapter<IssuesAdapter.ViewHolder
         TextView tvFixvotes;
         TextView tvAddress;
         CardView cvWholeIssue;
-        ImageButton btnFix;
+        ImageView btnFix;
 
 
 
@@ -97,6 +106,9 @@ public class IssuesAdapter extends RecyclerView.Adapter<IssuesAdapter.ViewHolder
                     Issue issue = issues.get(position);
                     issue.setFixvotes(issue.getFixvotes()+1);
                     adapter.onBindViewHolder(ViewHolder.this, position);
+                    if (issue.getFixvotes() == 12) {
+                        onButtonShowPopupWindowClick(v);
+                    }
                 }
             });
         }
@@ -112,6 +124,38 @@ public class IssuesAdapter extends RecyclerView.Adapter<IssuesAdapter.ViewHolder
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+
+        public void onButtonShowPopupWindowClick(View view) {
+
+            // inflate the layout of the popup window
+            LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View popupView = inflater.inflate(R.layout.popup, null);
+
+            // create the popup window
+            int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+            int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+            boolean focusable = true; // lets taps outside the popup also dismiss it
+            final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+            popupWindow.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+
+
+            // show the popup window
+            // which view you pass in doesn't matter, it is only used for the window tolken
+            popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                popupWindow.setElevation(20);
+            }
+
+            // dismiss the popup window when touched
+            popupView.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    popupWindow.dismiss();
+                    return true;
+                }
+            });
         }
     }
 }
