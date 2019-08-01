@@ -21,207 +21,185 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <SeekBar
+                android:id="@+id/seekBar2"
+                style="@style/Widget.AppCompat.SeekBar.Discrete"
+                android:layout_width="209dp"
+                android:layout_height="46dp"
+                android:layout_marginStart="38dp"
+                android:layout_marginLeft="38dp"
+                android:layout_marginEnd="101dp"
+                android:layout_marginRight="101dp"
+                android:max="10"
+                android:progress="3"
+                android:progressTint="#2196F3"
+                android:thumbTint="#2196F3"
+                app:layout_constraintBottom_toTopOf="@+id/seekBar4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView7"
+                app:layout_constraintTop_toBottomOf="@+id/seekBar3" />
+
+            <SeekBar
+                android:id="@+id/seekBar3"
+                style="@style/Widget.AppCompat.SeekBar.Discrete"
+                android:layout_width="209dp"
+                android:layout_height="46dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginEnd="101dp"
+                android:layout_marginRight="101dp"
+                android:max="10"
+                android:progress="3"
+                android:progressTint="#2196F3"
+                android:thumbTint="#2196F3"
+                app:layout_constraintBottom_toTopOf="@+id/seekBar2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView6"
+                app:layout_constraintTop_toBottomOf="@+id/fragMap" />
+
+            <SeekBar
+                android:id="@+id/seekBar4"
+                style="@style/Widget.AppCompat.SeekBar.Discrete"
+                android:layout_width="209dp"
+                android:layout_height="46dp"
+                android:layout_marginStart="22dp"
+                android:layout_marginLeft="22dp"
+                android:layout_marginEnd="101dp"
+                android:layout_marginRight="101dp"
+                android:max="10"
+                android:progress="3"
+                android:progressTint="#2196F3"
+                android:thumbTint="#2196F3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView8"
+                app:layout_constraintTop_toBottomOf="@+id/seekBar2" />
+
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/vpImageDetails"
                 android:layout_width="0dp"
                 android:layout_height="250dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginBottom="16dp"
                 app:layout_constraintBottom_toTopOf="@+id/btnFixVoteDetails"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvTitleDetails">
+                app:layout_constraintTop_toTopOf="parent">
 
             </androidx.viewpager.widget.ViewPager>
 
             <ImageButton
                 android:id="@+id/btnFixVoteDetails"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
+                android:layout_width="49dp"
+                android:layout_height="42dp"
+                android:layout_marginStart="9dp"
+                android:layout_marginLeft="9dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
                 android:background="#00FFFFFF"
                 android:src="@drawable/ic_fix_issue"
-                app:layout_constraintBottom_toTopOf="@+id/tvTimestampDetails"
+                app:layout_constraintBottom_toTopOf="@+id/tvDescriptionDetails"
                 app:layout_constraintEnd_toEndOf="@+id/vpImageDetails"
-                app:layout_constraintStart_toEndOf="@+id/pbDetails"
-                app:layout_constraintTop_toTopOf="@+id/pbDetails" />
+                app:layout_constraintStart_toEndOf="@+id/tvTitleDetails"
+                app:layout_constraintTop_toBottomOf="@+id/vpImageDetails" />
 
             <TextView
                 android:id="@+id/tvTitleDetails"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="1dp"
                 android:fontFamily="@font/cabin"
+                android:textColor="#2196F3"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/vpImageDetails"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <SeekBar
-                android:id="@+id/sbDanger"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="8dp"
-                android:max="100"
-                android:min="0"
-                android:progressDrawable="@drawable/custom_progess"
-                app:layout_constraintBottom_toTopOf="@+id/tvUtility"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/tvDanger"
-                app:layout_constraintTop_toBottomOf="@+id/tvDanger" />
-
-            <SeekBar
-                android:id="@+id/sbUtility"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:max="100"
-                android:min="0"
-                android:progressDrawable="@drawable/custom_progess"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/tvUtility"
-                app:layout_constraintTop_toBottomOf="@+id/tvUtility" />
-
-            <SeekBar
-                android:id="@+id/sbUrgency"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="8dp"
-                android:max="100"
-                android:min="0"
-                android:progressDrawable="@drawable/custom_progess"
-                app:layout_constraintBottom_toTopOf="@+id/tvDanger"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/tvUrgency"
-                app:layout_constraintTop_toBottomOf="@+id/tvUrgency" />
-
-            <TextView
-                android:id="@+id/tvUrgency"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="Urgency"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/sbUrgency"
-                app:layout_constraintStart_toStartOf="@+id/tvDescriptionDetails"
-                app:layout_constraintTop_toBottomOf="@+id/tvDescriptionDetails" />
-
-            <TextView
-                android:id="@+id/tvUtility"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="9dp"
-                android:text="Utility"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/sbUtility"
-                app:layout_constraintStart_toStartOf="@+id/sbDanger"
-                app:layout_constraintTop_toBottomOf="@+id/sbDanger" />
-
-            <TextView
-                android:id="@+id/tvTimestampDetails"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:gravity="end"
-                app:layout_constraintBottom_toTopOf="@+id/tvLocationHeader"
-                app:layout_constraintEnd_toEndOf="@+id/btnFixVoteDetails"
-                app:layout_constraintTop_toBottomOf="@+id/pbDetails" />
-
-            <TextView
-                android:id="@+id/tvDescriptionDetails"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toTopOf="@+id/tvUrgency"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/tvDescriptionHeader"
-                app:layout_constraintTop_toBottomOf="@+id/tvDescriptionHeader" />
-
-            <TextView
-                android:id="@+id/tvDanger"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="Danger"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/sbDanger"
-                app:layout_constraintStart_toStartOf="@+id/sbUrgency"
-                app:layout_constraintTop_toBottomOf="@+id/sbUrgency" />
-
-            <ProgressBar
-                android:id="@+id/pbDetails"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                app:layout_constraintBottom_toTopOf="@+id/tvTimestampDetails"
+                app:layout_constraintBottom_toTopOf="@+id/tvDescriptionDetails"
                 app:layout_constraintEnd_toStartOf="@+id/btnFixVoteDetails"
-                app:layout_constraintStart_toStartOf="@+id/vpImageDetails"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/vpImageDetails" />
 
             <TextView
-                android:id="@+id/tvLocationHeader"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:fontFamily="@font/cabin"
-                android:text="Location"
-                android:textSize="24sp"
+                android:id="@+id/tvDescriptionDetails"
+                android:layout_width="381dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="9dp"
+                android:layout_marginLeft="9dp"
+                android:layout_marginEnd="21dp"
+                android:layout_marginRight="21dp"
+                android:layout_marginBottom="11dp"
                 app:layout_constraintBottom_toTopOf="@+id/fragMap"
-                app:layout_constraintStart_toStartOf="@+id/pbDetails"
-                app:layout_constraintTop_toBottomOf="@+id/tvTimestampDetails" />
-
-            <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:id="@+id/fragMap"
-                android:name="com.google.android.gms.maps.SupportMapFragment"
-                android:layout_width="0dp"
-                android:layout_height="200dp"
-                app:layout_constraintBottom_toTopOf="@id/tvDescriptionHeader"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvLocationHeader"
-                tools:context=".MapsActivity" />
+                app:layout_constraintTop_toBottomOf="@+id/tvTitleDetails" />
 
             <TextView
-                android:id="@+id/tvDescriptionHeader"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/textView6"
+                android:layout_width="59dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="27dp"
+                android:layout_marginLeft="27dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
                 android:layout_marginBottom="8dp"
-                android:fontFamily="@font/cabin"
-                android:text="Description"
-                android:textSize="24sp"
-                app:layout_constraintBottom_toTopOf="@+id/tvDescriptionDetails"
-                app:layout_constraintStart_toStartOf="@+id/tvLocationHeader"
+                android:text="Danger"
+                app:layout_constraintBottom_toTopOf="@+id/textView7"
+                app:layout_constraintEnd_toStartOf="@+id/seekBar3"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/fragMap" />
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="26dp"
+                android:layout_marginStart="27dp"
+                android:layout_marginLeft="27dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="8dp"
+                android:text="Utility"
+                app:layout_constraintBottom_toTopOf="@+id/textView8"
+                app:layout_constraintEnd_toStartOf="@+id/seekBar2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="26dp"
+                android:layout_marginStart="27dp"
+                android:layout_marginLeft="27dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="8dp"
+                android:text="Urgency"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/seekBar4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+            <fragment
+                android:id="@+id/fragMap"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="386dp"
+                android:layout_height="127dp"
+                android:layout_marginStart="9dp"
+                android:layout_marginLeft="9dp"
+                android:layout_marginTop="11dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="6dp"
+                app:layout_constraintBottom_toTopOf="@+id/seekBar3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDescriptionDetails"
+                tools:context=".MapsActivity" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

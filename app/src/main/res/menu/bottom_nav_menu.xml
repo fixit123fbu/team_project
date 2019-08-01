@@ -9,16 +9,16 @@
         android:title="Timeline"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/action_profile"
-        android:enabled="true"
-        android:icon="@drawable/ic_profile"
-        android:title="Profile"
-        app:showAsAction="ifRoom" />
-    <item
         android:id="@+id/action_post"
         android:enabled="true"
         android:icon="@drawable/ic_post"
         android:title="Post"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_profile"
+        android:enabled="true"
+        android:icon="@drawable/ic_profile"
+        android:title="Profile"
         app:showAsAction="ifRoom" />
 
 </menu>
