@@ -5,11 +5,13 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.fixit.Adapters.PagerAdapter;
 import com.example.fixit.Models.Issue;
 import com.example.fixit.R;
+import com.example.fixit.fragments.DetailsFragment.CommentFragment;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -47,6 +49,12 @@ public class DetailsActivity extends FragmentActivity implements OnMapReadyCallb
         tvDescriptionDetails = findViewById(R.id.tvDescriptionDetails);
 
         issue = getIntent().getParcelableExtra(INTENT_ISSUE_EXTRA);
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        CommentFragment commentFragment = CommentFragment.newInstance(issue);
+        ft.replace(R.id.flComments, commentFragment);
+        ft.commit();
+
         tvTitleDetails.setText(issue.getTitle());
         tvTimestampDetails.setText(getIntent().getStringExtra(INTENT_DATE_EXTRA));
         tvDescriptionDetails.setText(issue.getDescription());
