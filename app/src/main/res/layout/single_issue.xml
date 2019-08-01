@@ -73,7 +73,6 @@
                 android:layout_marginBottom="60dp"
                 android:max="100"
                 android:min="0"
-                android:progress="75"
                 app:layout_constraintBottom_toTopOf="@+id/cvRoundedCorners"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.473"
@@ -155,7 +154,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/tvTimeStampSingle"
                 app:layout_constraintStart_toEndOf="@+id/cvRoundedCorners"
-                app:layout_constraintTop_toBottomOf="@+id/imageView18" />
+                app:layout_constraintTop_toBottomOf="@+id/imageView18"
+                android:src="@drawable/timestamp" />
 
             <ImageView
                 android:id="@+id/imageView18"
@@ -170,7 +170,8 @@
                 app:layout_constraintBottom_toTopOf="@+id/imageView14"
                 app:layout_constraintEnd_toStartOf="@+id/tvAddressSingle"
                 app:layout_constraintStart_toEndOf="@+id/cvRoundedCorners"
-                app:layout_constraintTop_toBottomOf="@+id/button2" />
+                app:layout_constraintTop_toBottomOf="@+id/btnFixVote"
+                android:src="@drawable/pin" />
 
             <Button
                 android:id="@+id/button2"
@@ -201,8 +202,9 @@
                 android:src="@drawable/th"
                 app:layout_constraintBottom_toTopOf="@+id/cvRoundedCorners"
                 app:layout_constraintEnd_toStartOf="@+id/tvFixVotes"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/pbFixVotes" />
+                app:layout_constraintStart_toEndOf="@+id/cvRoundedCorners"
+                app:layout_constraintTop_toBottomOf="@+id/pbFixVotes"
+                android:src="@drawable/fixit" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

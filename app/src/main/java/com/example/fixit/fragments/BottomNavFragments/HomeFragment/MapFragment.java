@@ -1,4 +1,4 @@
-package com.example.fixit.fragments.BottomNavFragments;
+package com.example.fixit.fragments.BottomNavFragments.HomeFragment;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -14,11 +14,14 @@ import com.example.fixit.Models.Issue;
 import com.example.fixit.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -36,7 +39,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     FusedLocationProviderClient fusedLocationClient;
     GoogleMap mGoogleMap;
     MapView mMapView;
-    List<Issue> mIssues;
+    List<Issue> mIssues = new ArrayList<>();
     View mView;
     LatLng currentLatLng;
 
@@ -58,7 +61,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
-//        getIssues();
+        getIssues();
 
         mMapView = mView.findViewById(R.id.map);
         if (mMapView != null) {
@@ -94,13 +97,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         mGoogleMap = googleMap;
         MapsInitializer.initialize(getContext());
         mGoogleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-//        for (Issue anIssue : mIssues) {
-//            if (anIssue.getLatitude() != null) {
-//                LatLng marker = new LatLng(anIssue.getLatitude(), anIssue.getLongitude());
-//                Marker myMark = googleMap.addMarker(new MarkerOptions().title(anIssue.getTitle()).position(marker));
-//                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marker, DEFAULT_ZOOM));
-//                myMark.showInfoWindow();
-//            }
-//        }
+        for (Issue anIssue : mIssues) {
+            if (anIssue.getLatitude() != null) {
+                LatLng marker = new LatLng(anIssue.getLatitude(), anIssue.getLongitude());
+                Marker myMark = googleMap.addMarker(new MarkerOptions().title(anIssue.getTitle()).position(marker));
+                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marker, DEFAULT_ZOOM));
+                myMark.showInfoWindow();
+            }
+        }
     }
 }
