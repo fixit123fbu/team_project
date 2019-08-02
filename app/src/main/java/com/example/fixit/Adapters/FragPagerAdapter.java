@@ -36,7 +36,13 @@ public class FragPagerAdapter extends FragmentPagerAdapter {
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        String title = getItem(position).getClass().getName();
-        return title.subSequence(title.lastIndexOf(".") + 1, title.length());
+        if (position == 0) {
+            String title = "List View";
+            return title.subSequence(title.lastIndexOf(".") + 1, title.length());
+        }
+        else {
+            String title = "Map View";
+            return title.subSequence(title.lastIndexOf(".") + 1, title.length());
+        }
     }
 }
