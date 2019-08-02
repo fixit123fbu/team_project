@@ -45,7 +45,7 @@ public class CommentFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         rvComments = view.findViewById(R.id.rvComments);
-        adapter = new CommentsAdapter(getContext(), issue.getComments());
+        adapter = new CommentsAdapter(getContext(), issue.getIssueID());
         rvComments.setAdapter(adapter);
         rvComments.setLayoutManager(new LinearLayoutManager(getContext()));
     }

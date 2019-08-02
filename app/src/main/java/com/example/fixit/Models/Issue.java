@@ -32,8 +32,6 @@ public class Issue implements Parcelable {
     private final static String POST_ROUTE = "posts";
     private final static String IMAGE_STORAGE_ROUTE = "images/";
     private static final String IMAGE_FORMAT = ".jpg";
-
-
     String issueID;
     Date date;
     String title;
@@ -53,7 +51,7 @@ public class Issue implements Parcelable {
         this.description = description;
         this.issueID = key;
         this.imagesCont = imagesCont;
-        this.comments.add("first hardcoded comment");
+        this.comments = new ArrayList<>();
     }
 
 
@@ -72,7 +70,7 @@ public class Issue implements Parcelable {
             imagesCont = in.readInt();
         }
         location = in.readParcelable(Location.class.getClassLoader());
-        comments = in.createStringArrayList();
+//        comments = in.createStringArrayList();
     }
 
     public static final Creator<Issue> CREATOR = new Creator<Issue>() {
@@ -109,9 +107,7 @@ public class Issue implements Parcelable {
             dest.writeInt(imagesCont);
         }
         dest.writeParcelable(location, flags);
-        comments = new ArrayList<>();
-        comments.add("hardcoded");
-        dest.writeStringList(comments);
+//        dest.writeStringList(comments);
     }
 
     public Integer getFixvotes() {
@@ -124,8 +120,7 @@ public class Issue implements Parcelable {
     }
 
     public void auxSetFixVotes(Integer val){
-        DatabaseReference mPostReference = FirebaseDatabase.getInstance().getReference().child(POST_ROUTE).child(getIssueID());
-        mPostReference.child("fixvotes").setValue(val);
+        getReferenceFirebase().child("fixvotes").setValue(val);
     }
 
     public Location getLocation() {
@@ -164,15 +159,9 @@ public class Issue implements Parcelable {
         return issueID;
     }
 
-    public void setIssueID(String issueID) {
-        this.issueID = issueID;
-    }
-
-
     public Double getLatitude() {
         return location.getLatitude();
     }
-
 
     public Double getLongitude() {
         return location.getLongitude();
@@ -180,12 +169,10 @@ public class Issue implements Parcelable {
 
     public Integer getImagesCont(){return imagesCont;}
 
-    public List<String> getComments(){
-        return comments;
-    }
 
     public void addComment(String newComment){
-        comments.add(newComment);
+        DatabaseReference mPostReference = getReferenceFirebase().child("comments").push();
+        mPostReference.setValue(newComment);
     }
 
     public void downloadFile(Integer index, final ImageView ivTemp) throws IOException {
@@ -249,4 +236,9 @@ public class Issue implements Parcelable {
         String address = location.getAddress();
         return auxFormatAddress(auxFormatAddress(address));
     }
+
+    public DatabaseReference getReferenceFirebase() {
+        return FirebaseDatabase.getInstance().getReference().child(POST_ROUTE).child(getIssueID());
+    }
+
 }
