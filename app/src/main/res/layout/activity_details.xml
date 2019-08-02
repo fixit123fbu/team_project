@@ -9,8 +9,8 @@
     <ScrollView
         android:id="@+id/svDetails"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toTopOf="@+id/flComments"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/etAddComment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,65 +22,58 @@
             android:layout_height="match_parent">
 
             <SeekBar
-                android:id="@+id/seekBar2"
+                android:id="@+id/sbUtility"
                 style="@style/Widget.AppCompat.SeekBar.Discrete"
                 android:layout_width="209dp"
                 android:layout_height="46dp"
-                android:layout_marginStart="38dp"
-                android:layout_marginLeft="38dp"
-                android:layout_marginEnd="101dp"
-                android:layout_marginRight="101dp"
                 android:max="10"
                 android:progress="3"
                 android:progressTint="#2196F3"
                 android:thumbTint="#2196F3"
-                app:layout_constraintBottom_toTopOf="@+id/seekBar4"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textView7"
-                app:layout_constraintTop_toBottomOf="@+id/seekBar3" />
+                app:layout_constraintBottom_toTopOf="@+id/sbUrgency"
+                app:layout_constraintEnd_toEndOf="@+id/sbDanger"
+                app:layout_constraintStart_toStartOf="@+id/sbDanger"
+                app:layout_constraintTop_toBottomOf="@+id/sbDanger" />
 
             <SeekBar
-                android:id="@+id/seekBar3"
+                android:id="@+id/sbDanger"
                 style="@style/Widget.AppCompat.SeekBar.Discrete"
-                android:layout_width="209dp"
+                android:layout_width="0dp"
                 android:layout_height="46dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginLeft="15dp"
-                android:layout_marginEnd="101dp"
-                android:layout_marginRight="101dp"
+                android:layout_marginEnd="92dp"
+                android:layout_marginRight="92dp"
                 android:max="10"
                 android:progress="3"
                 android:progressTint="#2196F3"
                 android:thumbTint="#2196F3"
-                app:layout_constraintBottom_toTopOf="@+id/seekBar2"
+                app:layout_constraintBottom_toTopOf="@+id/sbUtility"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textView6"
-                app:layout_constraintTop_toBottomOf="@+id/fragMap" />
+                app:layout_constraintStart_toEndOf="@+id/tvDanger"
+                app:layout_constraintTop_toBottomOf="@+id/fragMapDetails" />
 
             <SeekBar
-                android:id="@+id/seekBar4"
+                android:id="@+id/sbUrgency"
                 style="@style/Widget.AppCompat.SeekBar.Discrete"
                 android:layout_width="209dp"
                 android:layout_height="46dp"
-                android:layout_marginStart="22dp"
-                android:layout_marginLeft="22dp"
-                android:layout_marginEnd="101dp"
-                android:layout_marginRight="101dp"
+                android:layout_marginBottom="9dp"
                 android:max="10"
                 android:progress="3"
                 android:progressTint="#2196F3"
                 android:thumbTint="#2196F3"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textView8"
-                app:layout_constraintTop_toBottomOf="@+id/seekBar2" />
+                app:layout_constraintBottom_toTopOf="@+id/flComments"
+                app:layout_constraintEnd_toEndOf="@+id/sbUtility"
+                app:layout_constraintStart_toStartOf="@+id/sbUtility"
+                app:layout_constraintTop_toBottomOf="@+id/sbUtility" />
 
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/vpImageDetails"
                 android:layout_width="0dp"
                 android:layout_height="250dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginBottom="16dp"
-                app:layout_constraintBottom_toTopOf="@+id/btnFixVoteDetails"
+                app:layout_constraintBottom_toTopOf="@+id/tvTitleDetails"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -89,19 +82,18 @@
 
             <ImageButton
                 android:id="@+id/btnFixVoteDetails"
-                android:layout_width="49dp"
-                android:layout_height="42dp"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginStart="9dp"
                 android:layout_marginLeft="9dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginRight="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
                 android:background="#00FFFFFF"
                 android:src="@drawable/ic_fix_issue"
-                app:layout_constraintBottom_toTopOf="@+id/tvDescriptionDetails"
+                app:layout_constraintBottom_toBottomOf="@+id/tvTitleDetails"
                 app:layout_constraintEnd_toEndOf="@+id/vpImageDetails"
                 app:layout_constraintStart_toEndOf="@+id/tvTitleDetails"
-                app:layout_constraintTop_toBottomOf="@+id/vpImageDetails" />
+                app:layout_constraintTop_toTopOf="@+id/tvTitleDetails" />
 
             <TextView
                 android:id="@+id/tvTitleDetails"
@@ -124,78 +116,67 @@
 
             <TextView
                 android:id="@+id/tvDescriptionDetails"
-                android:layout_width="381dp"
-                android:layout_height="40dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="9dp"
                 android:layout_marginLeft="9dp"
-                android:layout_marginEnd="21dp"
-                android:layout_marginRight="21dp"
-                android:layout_marginBottom="11dp"
-                app:layout_constraintBottom_toTopOf="@+id/fragMap"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/fragMapDetails"
+                app:layout_constraintEnd_toEndOf="@+id/btnFixVoteDetails"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvTitleDetails" />
 
             <TextView
-                android:id="@+id/textView6"
-                android:layout_width="59dp"
-                android:layout_height="25dp"
-                android:layout_marginStart="27dp"
-                android:layout_marginLeft="27dp"
-                android:layout_marginTop="8dp"
+                android:id="@+id/tvDanger"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="15dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginBottom="8dp"
                 android:text="Danger"
-                app:layout_constraintBottom_toTopOf="@+id/textView7"
-                app:layout_constraintEnd_toStartOf="@+id/seekBar3"
+                app:layout_constraintBottom_toTopOf="@+id/tvUtility"
+                app:layout_constraintEnd_toStartOf="@+id/sbDanger"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fragMap" />
+                app:layout_constraintTop_toBottomOf="@+id/fragMapDetails" />
 
             <TextView
-                android:id="@+id/textView7"
-                android:layout_width="wrap_content"
-                android:layout_height="26dp"
-                android:layout_marginStart="27dp"
-                android:layout_marginLeft="27dp"
+                android:id="@+id/tvUtility"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginRight="15dp"
                 android:layout_marginBottom="8dp"
                 android:text="Utility"
-                app:layout_constraintBottom_toTopOf="@+id/textView8"
-                app:layout_constraintEnd_toStartOf="@+id/seekBar2"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView6" />
+                app:layout_constraintBottom_toTopOf="@+id/tvUrgency"
+                app:layout_constraintEnd_toEndOf="@+id/tvDanger"
+                app:layout_constraintStart_toStartOf="@+id/tvDanger"
+                app:layout_constraintTop_toBottomOf="@+id/tvDanger" />
 
             <TextView
-                android:id="@+id/textView8"
-                android:layout_width="wrap_content"
-                android:layout_height="26dp"
-                android:layout_marginStart="22dp"
-                android:layout_marginLeft="22dp"
+                android:id="@+id/tvUrgency"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:layout_marginEnd="25dp"
-                android:layout_marginRight="25dp"
                 android:layout_marginBottom="29dp"
                 android:text="Urgency"
                 app:layout_constraintBottom_toTopOf="@+id/flComments"
-                app:layout_constraintEnd_toStartOf="@+id/seekBar4"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView7" />
+                app:layout_constraintEnd_toEndOf="@+id/tvUtility"
+                app:layout_constraintStart_toStartOf="@+id/tvUtility"
+                app:layout_constraintTop_toBottomOf="@+id/tvUtility" />
 
             <fragment
-                android:id="@+id/fragMap"
+                android:id="@+id/fragMapDetails"
                 android:name="com.google.android.gms.maps.SupportMapFragment"
-                android:layout_width="386dp"
-                android:layout_height="127dp"
-                android:layout_marginStart="9dp"
-                android:layout_marginLeft="9dp"
-                android:layout_marginTop="11dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginRight="16dp"
+                android:layout_width="0dp"
+                android:layout_height="125dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
                 android:layout_marginBottom="6dp"
-                app:layout_constraintBottom_toTopOf="@+id/seekBar3"
+                app:layout_constraintBottom_toTopOf="@+id/sbDanger"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvDescriptionDetails"
@@ -204,15 +185,41 @@
             <FrameLayout
                 android:id="@+id/flComments"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/seekBar4"></FrameLayout>
+                app:layout_constraintTop_toBottomOf="@+id/sbUrgency"></FrameLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
+
+    <EditText
+        android:id="@+id/etAddComment"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:ems="10"
+        android:hint="Add comment"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnAddComment"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/svDetails" />
+
+    <Button
+        android:id="@+id/btnAddComment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Send"
+        app:layout_constraintBottom_toBottomOf="@+id/etAddComment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/etAddComment"
+        app:layout_constraintTop_toTopOf="@+id/etAddComment" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

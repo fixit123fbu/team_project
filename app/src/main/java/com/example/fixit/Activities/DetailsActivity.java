@@ -1,6 +1,9 @@
 package com.example.fixit.Activities;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -22,52 +25,83 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class DetailsActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    float DEFAULT_ZOOM = 15f;
+    private float DEFAULT_ZOOM = 15f;
     private GoogleMap mMap;
-    String INTENT_ISSUE_EXTRA = DetailsActivity.class.getSimpleName();
-    String INTENT_DATE_EXTRA = "date";
+    private String INTENT_ISSUE_EXTRA = DetailsActivity.class.getSimpleName();
+    private String INTENT_DATE_EXTRA = "date";
 
-    SeekBar sbUrgency;
-    SeekBar sbDanger;
-    SeekBar sbUtility;
-    Issue issue;
-    TextView tvTitleDetails;
-    TextView tvTimestampDetails;
-    TextView tvDescriptionDetails;
-    ViewPager viewPager;
-    PagerAdapter pagerAdapter;
+    private SeekBar sbUrgency;
+    private SeekBar sbDanger;
+    private SeekBar sbUtility;
+    private Issue issue;
+    private TextView tvTitleDetails;
+    private TextView tvTimestampDetails;
+    private TextView tvDescriptionDetails;
+    private ViewPager viewPager;
+    private PagerAdapter pagerAdapter;
+    private EditText etAddComment;
+    private Button btnAddComment;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
-        viewPager = findViewById(R.id.vpImageDetails);
-        sbUrgency =findViewById(R.id.seekBar2);
-        sbDanger = findViewById(R.id.seekBar3);
-        sbUtility = findViewById(R.id.seekBar4);
-        tvTitleDetails = findViewById(R.id.tvTitleDetails);
-        tvDescriptionDetails = findViewById(R.id.tvDescriptionDetails);
+        findViews();
+        setListeners();
+        getIssue();
+        configureViewPager();
+        initMapFragment();
+        startCommentsFragments();
+    }
 
-        issue = getIntent().getParcelableExtra(INTENT_ISSUE_EXTRA);
+    private void setListeners() {
+        btnAddComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(etAddComment.getText() != null){
+                    issue.addComment(etAddComment.getText().toString());
+                }
+            }
+        });
+    }
 
+    private void initMapFragment() {
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.fragMapDetails);
+        mapFragment.getMapAsync(this);
+    }
+
+    private void configureViewPager() {
+        pagerAdapter = new PagerAdapter(DetailsActivity.this, issue);
+        viewPager.setAdapter(pagerAdapter);
+    }
+
+    private void startCommentsFragments() {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         CommentFragment commentFragment = CommentFragment.newInstance(issue);
         ft.replace(R.id.flComments, commentFragment);
         ft.commit();
+    }
 
+    private void getIssue() {
+        issue = getIntent().getParcelableExtra(INTENT_ISSUE_EXTRA);
         tvTitleDetails.setText(issue.getTitle());
 //        tvTimestampDetails.setText(getIntent().getStringExtra(INTENT_DATE_EXTRA));
         tvDescriptionDetails.setText(issue.getDescription());
-
-        pagerAdapter = new PagerAdapter(DetailsActivity.this, issue);
-        viewPager.setAdapter(pagerAdapter);
-
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.fragMap);
-        mapFragment.getMapAsync(this);
-
     }
+
+    private void findViews() {
+        viewPager = findViewById(R.id.vpImageDetails);
+        sbUrgency =findViewById(R.id.sbUtility);
+        sbDanger = findViewById(R.id.sbDanger);
+        sbUtility = findViewById(R.id.sbUrgency);
+        tvTitleDetails = findViewById(R.id.tvTitleDetails);
+        tvDescriptionDetails = findViewById(R.id.tvDescriptionDetails);
+        etAddComment = findViewById(R.id.etAddComment);
+        btnAddComment = findViewById(R.id.btnAddComment);
+    }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;

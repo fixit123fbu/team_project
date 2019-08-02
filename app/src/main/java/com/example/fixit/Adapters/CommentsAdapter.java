@@ -10,17 +10,36 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fixit.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHolder> {
 
     Context context;
-    List<String> comments;
+    List<String> comments = new ArrayList<>();
 
-    public CommentsAdapter(Context context, List<String> comments){
+    public CommentsAdapter(Context context, String key){
         this.context = context;
-        this.comments =  comments;
+        Query recentPostsQuery = FirebaseDatabase.getInstance().getReference().child("posts").child(key).child("comments").orderByKey().limitToLast(5);
+        recentPostsQuery.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                comments = new ArrayList<>();
+                for (DataSnapshot commentSnapshot: dataSnapshot.getChildren()) {
+                    comments.add(commentSnapshot.getValue(String.class));
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @NonNull

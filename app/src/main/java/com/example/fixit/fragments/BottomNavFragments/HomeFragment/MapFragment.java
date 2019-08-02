@@ -41,10 +41,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     MapView mMapView;
     List<Issue> mIssues = new ArrayList<>();
     View mView;
-    LatLng currentLatLng;
 
-    public MapFragment() {
-    }
+    public MapFragment() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
