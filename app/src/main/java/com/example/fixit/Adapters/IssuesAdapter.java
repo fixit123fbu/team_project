@@ -114,7 +114,7 @@ public class IssuesAdapter extends RecyclerView.Adapter<IssuesAdapter.ViewHolder
         public void bind(Issue issue) {
             tvTitle.setText(issue.getTitle());
             tvTimestamp.setText("Reported on " + issue.formarDate());
-            tvFixvotes.setText(issue.getFixvotes()+"/50 upvotes");
+            tvFixvotes.setText(issue.getFixvotes()+" upvotes");
             tvAddress.setText(issue.formatAddress());
             pbFixvotes.setProgress(issue.getFixvotes());
 //            try {

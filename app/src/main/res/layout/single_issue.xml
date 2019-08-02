@@ -194,7 +194,7 @@
                 android:layout_marginBottom="8dp"
                 android:background="#00FFFFFF"
                 android:scaleType="centerCrop"
-                android:src="@drawable/camera_icon"
+                android:src="@drawable/upvote"
                 app:layout_constraintBottom_toTopOf="@+id/tvAddressSingle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tvFixVotes"
