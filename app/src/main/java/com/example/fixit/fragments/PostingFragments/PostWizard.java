@@ -2,11 +2,11 @@ package com.example.fixit.fragments.PostingFragments;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -79,13 +79,8 @@ public class PostWizard extends Fragment{
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (position > 0) {
-                    position = position - 1;
-                    changeChildFrag();
-                }
-                else{
-                    ((OnFinishedPostingListener) getActivity()).backToHome();
-                }
+                position = position - 1;
+                changeChildFrag();
             }
         });
 
@@ -93,21 +88,20 @@ public class PostWizard extends Fragment{
             @Override
             public void onClick(View v) {
                 updateIssue();
-                if (position < steps.size()-1){
-                    position = position + 1;
-                    changeChildFrag();
-                }
-                else{
-                    postIssue();
-                    ((OnFinishedPostingListener) getActivity()).backToHome();
-                }
+                position = position + 1;
+                changeChildFrag();
             }
         });
     }
 
     private void changeChildFrag(){
-        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.replace(R.id.flChildFragCont, steps.get(position)).commit();
+        if(position >= INFO_POS && position <= PIC_POS ){
+            FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+            transaction.replace(R.id.flChildFragCont, steps.get(position)).commit();
+        }
+        else{
+            ((OnFinishedPostingListener) getActivity()).backToHome();
+        }
     }
 
     private void updateIssue(){
@@ -151,16 +145,15 @@ public class PostWizard extends Fragment{
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
-                Toast.makeText(getContext(), "Uploading failed", Toast.LENGTH_LONG).show();
+                Log.d("UploadBytesToStorage", "Uploaded");
             }
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Toast.makeText(getContext(), "Uploaded", Toast.LENGTH_LONG).show();
+                Log.d("UploadBytesToStorage", "Failed when uploading bytes");
             }
         });
     }
-
     public interface OnFinishedPostingListener{
         void backToHome();
     }

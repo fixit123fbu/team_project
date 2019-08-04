@@ -2,8 +2,6 @@ package com.example.fixit.Activities;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -20,8 +18,6 @@ public class UserActivity extends FragmentActivity implements PostWizard.OnFinis
 
     private BottomNavigationView bottomNavigationView;
     private FragmentManager fragmentManager;
-    private EditText etAddComment;
-    private Button btnAddComment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
