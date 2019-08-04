@@ -23,7 +23,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:appComponentFactory">
-        <activity android:name=".Activities.DetailsActivity"></activity>
+        <activity android:name=".Activities.DetailsFragment"></activity>
         <activity android:name=".Activities.UserActivity"
             android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".Activities.SignInActivity">

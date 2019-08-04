@@ -12,19 +12,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fixit.Adapters.CommentsAdapter;
-import com.example.fixit.Models.Issue;
 import com.example.fixit.R;
 
 public class CommentFragment extends Fragment {
 
     private RecyclerView rvComments;
-    private Issue issue;
+    private String issueKey;
     private CommentsAdapter adapter;
 
-    public static CommentFragment newInstance(Issue issue){
+    public static CommentFragment newInstance(String issueKey){
         CommentFragment commentFragment = new CommentFragment();
         Bundle args = new Bundle();
-        args.putParcelable("issue", issue);
+        args.putString("issueKey", issueKey);
         commentFragment.setArguments(args);
         return commentFragment;
     }
@@ -32,7 +31,7 @@ public class CommentFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.issue = getArguments().getParcelable("issue");
+        this.issueKey = getArguments().getString("issueKey", "");
     }
 
     @Nullable
@@ -45,7 +44,7 @@ public class CommentFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         rvComments = view.findViewById(R.id.rvComments);
-        adapter = new CommentsAdapter(getContext(), issue.getIssueID());
+        adapter = new CommentsAdapter(getContext(), issueKey);
         rvComments.setAdapter(adapter);
         rvComments.setLayoutManager(new LinearLayoutManager(getContext()));
     }
