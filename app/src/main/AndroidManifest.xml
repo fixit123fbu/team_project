@@ -26,7 +26,7 @@
         <activity android:name=".Activities.DetailsActivity"></activity>
         <activity android:name=".Activities.UserActivity"
             android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".Activities.MainActivity">
+        <activity android:name=".Activities.SignInActivity">
 
 
             <intent-filter>

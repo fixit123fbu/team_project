@@ -8,12 +8,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.fixit.Models.FixitUser;
 import com.example.fixit.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -27,14 +27,14 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.squareup.picasso.Picasso;
 
 
-public class MainActivity extends AppCompatActivity {
+public class SignInActivity extends AppCompatActivity {
 
     private static final String SIGN_IN = "signIn";
     private static final String TAG = "GoogleActivity";
     private static final int RC_SIGN_IN = 9001;
+    private static final String USER_TAG = "fixitUser";
 
     private FirebaseAuth mAuth;
 
@@ -65,11 +65,7 @@ public class MainActivity extends AppCompatActivity {
         signUpbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                signIn(usernameSignUp.getText().toString(), passwordSignUp.getText().toString());
-//                Intent intent = new Intent(MainActivity.this, UserActivity.class);
-//                startActivity(intent);
-//                finish();
-                signIn();
+                googleSignIn();
             }
         });
     }
@@ -81,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
     }
 
-    private void signIn(String email, String password){
+    private void emailPassSignIn(String email, String password){
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
@@ -114,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void signUp() {
+    private void emailPassSignUp() {
         String email = usernameSignUp.getText().toString(), password = passwordSignUp.getText().toString();
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
@@ -123,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("SignUp", "createUserWithEmail:success");
                 } else {
                     Log.w("SignUp", "createUserWithEmail:failure", task.getException());
-                    Toast.makeText(MainActivity.this, "Authentication failed.",
+                    Toast.makeText(SignInActivity.this, "Authentication failed.",
                             Toast.LENGTH_SHORT).show();
                 }
             }
@@ -140,7 +136,6 @@ public class MainActivity extends AppCompatActivity {
             try {
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = task.getResult(ApiException.class);
-                Log.w(TAG, "Google sign in failed");
                 firebaseAuthWithGoogle(account);
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
@@ -171,26 +166,18 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-    private void signIn() {
+    private void googleSignIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
     private void showUserInfo(FirebaseUser user) {
         // Name, email address, and profile photo Url
-        String name = user.getDisplayName();
-        String email = user.getEmail();
-        String photoUrl = String.valueOf(user.getPhotoUrl());
-        ImageView ivProfilePic = findViewById(R.id.ivProfilePic);
-        Picasso.get().load(photoUrl).into(ivProfilePic);
-
-        // Check if user's email is verified
-        boolean emailVerified = user.isEmailVerified();
-
-        // The user's ID, unique to the Firebase project. Do NOT use this value to
-        // authenticate with your backend server, if you have one. Use
-        // FirebaseUser.getIdToken() instead.
-        String uid = user.getUid();
+//        Picasso.get().load(photoUrl).into(ivProfilePic);
+        FixitUser fixitUser = new FixitUser(user.getDisplayName(), user.getEmail(), String.valueOf(user.getPhotoUrl()));
+        Intent intent = new Intent(SignInActivity.this, UserActivity.class);
+        intent.putExtra(USER_TAG, fixitUser);
+        startActivity(intent);
     }
 
 }
