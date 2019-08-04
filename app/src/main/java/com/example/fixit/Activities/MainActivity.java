@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -26,6 +27,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.squareup.picasso.Picasso;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -60,17 +62,13 @@ public class MainActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        Intent intent = new Intent(MainActivity.this, UserActivity.class);
-        startActivity(intent);
-        finish();
-
         signUpbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                signIn(usernameSignUp.getText().toString(), passwordSignUp.getText().toString());
-                Intent intent = new Intent(MainActivity.this, UserActivity.class);
-                startActivity(intent);
-                finish();
+//                signIn(usernameSignUp.getText().toString(), passwordSignUp.getText().toString());
+//                Intent intent = new Intent(MainActivity.this, UserActivity.class);
+//                startActivity(intent);
+//                finish();
                 signIn();
             }
         });
@@ -96,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
                             String name = user.getDisplayName();
                             String email = user.getEmail();
                             Uri photoUrl = user.getPhotoUrl();
+
 
                             // Check if user's email is verified
                             boolean emailVerified = user.isEmailVerified();
@@ -181,7 +180,9 @@ public class MainActivity extends AppCompatActivity {
         // Name, email address, and profile photo Url
         String name = user.getDisplayName();
         String email = user.getEmail();
-        Uri photoUrl = user.getPhotoUrl();
+        String photoUrl = String.valueOf(user.getPhotoUrl());
+        ImageView ivProfilePic = findViewById(R.id.ivProfilePic);
+        Picasso.get().load(photoUrl).into(ivProfilePic);
 
         // Check if user's email is verified
         boolean emailVerified = user.isEmailVerified();

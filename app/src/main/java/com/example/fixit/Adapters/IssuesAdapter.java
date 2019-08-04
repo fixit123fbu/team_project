@@ -29,9 +29,6 @@ import java.util.List;
 
 public class IssuesAdapter extends RecyclerView.Adapter<IssuesAdapter.ViewHolder>{
 
-    private final static String IMAGE_STORAGE_ROUTE = "images/";
-    private static final String IMAGE_FORMAT = ".jpg";
-
     Context context;
     List<Issue> issues;
 
