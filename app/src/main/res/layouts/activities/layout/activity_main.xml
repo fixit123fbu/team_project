@@ -9,47 +9,39 @@
 
     <EditText
         android:id="@+id/username_signin_et"
-        android:layout_width="327dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
+        android:autofillHints=""
         android:ems="10"
         android:hint="Enter your email."
         android:inputType="textEmailAddress"
         app:layout_constraintBottom_toTopOf="@+id/password_signin_et"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        android:autofillHints="" />
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <EditText
         android:id="@+id/password_signin_et"
-        android:layout_width="327dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
+        android:autofillHints=""
         android:ems="10"
         android:hint="Enter a password."
         android:inputType="textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/btnSignUp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username_signin_et"
-        android:autofillHints="" />
+        app:layout_constraintBottom_toTopOf="@+id/btnSignIn"
+        app:layout_constraintEnd_toEndOf="@+id/username_signin_et"
+        app:layout_constraintStart_toStartOf="@+id/username_signin_et"
+        app:layout_constraintTop_toBottomOf="@+id/username_signin_et" />
 
     <Button
-        android:id="@+id/btnSignUp"
+        android:id="@+id/btnSignIn"
         style="@android:style/Widget.Material.Button.Inset"
-        android:layout_width="326dp"
-        android:layout_height="63dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
@@ -72,7 +64,7 @@
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="310dp"
-        android:layout_height="294dp"
+        android:layout_height="310dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="60dp"
@@ -82,7 +74,7 @@
         app:layout_constraintBottom_toTopOf="@+id/username_signin_et"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

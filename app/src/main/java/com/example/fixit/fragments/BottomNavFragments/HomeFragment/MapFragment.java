@@ -12,8 +12,6 @@ import androidx.fragment.app.Fragment;
 
 import com.example.fixit.Models.Issue;
 import com.example.fixit.R;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -29,7 +27,6 @@ import java.util.List;
 public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     private static final float DEFAULT_ZOOM = 15f;
-    private FusedLocationProviderClient fusedLocationClient;
     private GoogleMap mGoogleMap;
     private MapView mMapView;
     private List<Issue> mIssues;
@@ -49,7 +46,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.mIssues = getArguments().getParcelableArrayList("issues");
-
     }
 
     @Override
@@ -61,7 +57,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
         mMapView = mView.findViewById(R.id.map);
         if (mMapView != null) {
             mMapView.onCreate(null);
