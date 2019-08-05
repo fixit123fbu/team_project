@@ -6,29 +6,73 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvProfileCircular"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:elevation="12dp"
+        android:innerRadius="0dp"
+        android:shape="ring"
+        android:thicknessRatio="1.9"
+        app:cardCornerRadius="30dp"
+        app:layout_constraintEnd_toStartOf="@+id/tvSingleComment"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/ivProfileComments"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:scaleType="centerCrop" />
+
+    </androidx.cardview.widget.CardView>
+
     <TextView
         android:id="@+id/tvSingleComment"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="18dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
         android:fontFamily="@font/cabin"
         android:includeFontPadding="true"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/hdSingleComment"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/tvUsernameComments"
+        app:layout_constraintTop_toBottomOf="@+id/tvUsernameComments" />
+
+    <TextView
+        android:id="@+id/tvUsernameComments"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/tvSingleComment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cvProfileCircular"
+        app:layout_constraintTop_toTopOf="@+id/cvProfileCircular" />
 
     <View
         android:id="@+id/hdSingleComment"
-        android:layout_width="0dp"
+        android:layout_width="411dp"
         android:layout_height="1dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginBottom="8dp"
         android:background="?android:attr/listDivider"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvSingleComment" />
 </androidx.constraintlayout.widget.ConstraintLayout>

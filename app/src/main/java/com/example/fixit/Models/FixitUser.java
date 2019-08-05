@@ -45,4 +45,12 @@ public class FixitUser implements Parcelable {
         dest.writeString(email);
         dest.writeString(photoUrl);
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
 }

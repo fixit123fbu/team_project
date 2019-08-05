@@ -57,6 +57,10 @@ public class UserActivity extends FragmentActivity implements PostWizard.OnFinis
         backToHome();
     }
 
+    public FixitUser getFixitUser(){
+        return fixitUser;
+    }
+
     @Override
     public void backToHome() {
         fragmentManager.beginTransaction().replace(R.id.flBottomNav, new HomeManagerFragment()).commit();

@@ -173,7 +173,6 @@ public class SignInActivity extends AppCompatActivity {
 
     private void showUserInfo(FirebaseUser user) {
         // Name, email address, and profile photo Url
-//        Picasso.get().load(photoUrl).into(ivProfilePic);
         FixitUser fixitUser = new FixitUser(user.getDisplayName(), user.getEmail(), String.valueOf(user.getPhotoUrl()));
         Intent intent = new Intent(SignInActivity.this, UserActivity.class);
         intent.putExtra(USER_TAG, fixitUser);

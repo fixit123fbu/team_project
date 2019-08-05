@@ -1,9 +1,12 @@
 package com.example.fixit.Activities;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SeekBar;
@@ -16,6 +19,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.fixit.Adapters.PagerAdapter;
+import com.example.fixit.Models.Comment;
 import com.example.fixit.Models.Issue;
 import com.example.fixit.R;
 import com.example.fixit.fragments.DetailsFragment.CommentFragment;
@@ -72,7 +76,9 @@ public class DetailsFragment extends Fragment implements OnMapReadyCallback {
             @Override
             public void onClick(View v) {
                 if(etAddComment.getText() != null){
-                    issue.addComment(etAddComment.getText().toString());
+                    issue.addComment(new Comment(etAddComment.getText().toString(), ((UserActivity)getActivity()).getFixitUser()));
+                    etAddComment.setText("");
+                    hideKeyboardFrom(getContext(), getView());
                 }
             }
         });
@@ -119,5 +125,10 @@ public class DetailsFragment extends Fragment implements OnMapReadyCallback {
         LatLng marker = new LatLng(issue.getLatitude(), issue.getLongitude());
         Marker myMark = googleMap.addMarker(new MarkerOptions().title(issue.getTitle()).position(marker));
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marker, DEFAULT_ZOOM));
+    }
+
+    public static void hideKeyboardFrom(Context context, View view) {
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }

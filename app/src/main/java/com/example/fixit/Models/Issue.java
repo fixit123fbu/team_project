@@ -157,7 +157,7 @@ public class Issue implements Parcelable {
     public Integer getImagesCont(){return imagesCont;}
 
     @Exclude
-    public void addComment(String newComment){
+    public void addComment(Comment newComment){
         DatabaseReference mPostReference = getReferenceFirebase().child("comments").push();
         mPostReference.setValue(newComment);
     }
