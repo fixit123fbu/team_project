@@ -27,6 +27,7 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
@@ -101,6 +102,7 @@ public class LocationFrag extends Fragment{
                                 e.printStackTrace();
                             }
                             map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, DEFAULT_ZOOM));
+                            map.addMarker(new MarkerOptions().position(currentLatLng));
                             Toast.makeText(getContext(), "Current location loaded", Toast.LENGTH_LONG).show();
                         }
                     }
