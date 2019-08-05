@@ -1,7 +1,6 @@
 package com.example.fixit.Adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -19,18 +18,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.fixit.Activities.DetailsActivity;
+import com.example.fixit.Activities.DetailsFragment;
+import com.example.fixit.Activities.UserActivity;
 import com.example.fixit.Models.Issue;
 import com.example.fixit.R;
 
 import java.util.List;
 
 public class IssuesAdapter extends RecyclerView.Adapter<IssuesAdapter.ViewHolder>{
-
-    private final static String IMAGE_STORAGE_ROUTE = "images/";
-    private static final String IMAGE_FORMAT = ".jpg";
 
     Context context;
     List<Issue> issues;
@@ -61,7 +59,7 @@ public class IssuesAdapter extends RecyclerView.Adapter<IssuesAdapter.ViewHolder
 
     class ViewHolder extends RecyclerView.ViewHolder{
 
-        String INTENT_ISSUE_EXTRA = DetailsActivity.class.getSimpleName();
+        String INTENT_ISSUE_EXTRA = DetailsFragment.class.getSimpleName();
         String INTENT_DATE_EXTRA = "date";
         ImageView ivIssue;
         TextView tvTitle;
@@ -89,10 +87,9 @@ public class IssuesAdapter extends RecyclerView.Adapter<IssuesAdapter.ViewHolder
                 @Override
                 public void onClick(View v) {
                     Issue tempIssue = issues.get(getAdapterPosition());
-                    Intent intent = new Intent(context, DetailsActivity.class);
-                    intent.putExtra(INTENT_ISSUE_EXTRA, tempIssue);
-                    intent.putExtra(INTENT_DATE_EXTRA, tempIssue.formarDate());
-                    context.startActivity(intent);
+                    FragmentTransaction ft = ((UserActivity)context).getSupportFragmentManager().beginTransaction();
+                    DetailsFragment detailsFragment = DetailsFragment.newInstance(tempIssue);
+                    ft.replace(R.id.flBottomNav, detailsFragment).commit();
                 }
             });
             btnFix.setOnClickListener(new View.OnClickListener() {

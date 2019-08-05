@@ -1,6 +1,8 @@
 package com.example.fixit.fragments.BottomNavFragments.HomeFragment;
 
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,22 +16,23 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.fixit.Adapters.IssuesAdapter;
 import com.example.fixit.Models.Issue;
 import com.example.fixit.R;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class TimelineFragment extends Fragment {
 
-    private final static String POST_ROUTE = "posts";
-
     private RecyclerView rvTimeline;
     private IssuesAdapter adapter;
     private List<Issue> mIssues;
+
+    public static TimelineFragment newInstance(List<Issue> issues){
+        TimelineFragment timelineFragment = new TimelineFragment();
+        Bundle args = new Bundle();
+        args.putParcelableArrayList("issues", (ArrayList<? extends Parcelable>) issues);
+        timelineFragment.setArguments(args);
+        return timelineFragment;
+    }
 
     @Nullable
     @Override
@@ -38,36 +41,20 @@ public class TimelineFragment extends Fragment {
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.mIssues = getArguments().getParcelableArrayList("issues");
+        Log.d("TimelineFragment", "Issues received");
+    }
+
+    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         rvTimeline = view.findViewById(R.id.rvTimeline);
-
-        // create the data source
-        mIssues = new ArrayList<>();
         // create adapter
         adapter = new IssuesAdapter(getContext(), mIssues);
         // set adapter on the recycler view
         rvTimeline.setAdapter(adapter);
         // set layout manager on the recycler view
         rvTimeline.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        getIssues();
-    }
-
-    public void getIssues(){
-        Query recentPostsQuery = FirebaseDatabase.getInstance().getReference().child(POST_ROUTE).orderByKey().limitToLast(5);
-        recentPostsQuery.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot issueSnapshot: dataSnapshot.getChildren()) {
-                    Issue temp = issueSnapshot.getValue(Issue.class);
-                    mIssues.add(temp);
-                    adapter.notifyDataSetChanged();
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
     }
 }

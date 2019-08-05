@@ -14,6 +14,7 @@ import androidx.annotation.RequiresApi;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Exclude;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
@@ -23,9 +24,7 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class Issue implements Parcelable {
 
@@ -39,7 +38,6 @@ public class Issue implements Parcelable {
     Integer fixvotes;
     Integer imagesCont;
     Location location;
-    List<String> comments;
 
     public Issue(){}
 
@@ -47,11 +45,10 @@ public class Issue implements Parcelable {
         this.title = title;
         this.location = location;
         this.fixvotes = 0;
-        this.date = new Date();
         this.description = description;
         this.issueID = key;
         this.imagesCont = imagesCont;
-        this.comments = new ArrayList<>();
+        this.date = new Date();
     }
 
 
@@ -70,7 +67,6 @@ public class Issue implements Parcelable {
             imagesCont = in.readInt();
         }
         location = in.readParcelable(Location.class.getClassLoader());
-//        comments = in.createStringArrayList();
     }
 
     public static final Creator<Issue> CREATOR = new Creator<Issue>() {
@@ -107,7 +103,6 @@ public class Issue implements Parcelable {
             dest.writeInt(imagesCont);
         }
         dest.writeParcelable(location, flags);
-//        dest.writeStringList(comments);
     }
 
     public Integer getFixvotes() {
@@ -147,14 +142,6 @@ public class Issue implements Parcelable {
         this.description = description;
     }
 
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
     public String getIssueID() {
         return issueID;
     }
@@ -169,8 +156,8 @@ public class Issue implements Parcelable {
 
     public Integer getImagesCont(){return imagesCont;}
 
-
-    public void addComment(String newComment){
+    @Exclude
+    public void addComment(Comment newComment){
         DatabaseReference mPostReference = getReferenceFirebase().child("comments").push();
         mPostReference.setValue(newComment);
     }
@@ -237,6 +224,7 @@ public class Issue implements Parcelable {
         return auxFormatAddress(auxFormatAddress(address));
     }
 
+    @Exclude
     public DatabaseReference getReferenceFirebase() {
         return FirebaseDatabase.getInstance().getReference().child(POST_ROUTE).child(getIssueID());
     }

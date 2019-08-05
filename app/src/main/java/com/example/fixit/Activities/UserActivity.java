@@ -2,14 +2,13 @@ package com.example.fixit.Activities;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
+import com.example.fixit.Models.FixitUser;
 import com.example.fixit.R;
 import com.example.fixit.fragments.BottomNavFragments.HomeFragment.HomeManagerFragment;
 import com.example.fixit.fragments.BottomNavFragments.ProfileFragment;
@@ -18,15 +17,17 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class UserActivity extends FragmentActivity implements PostWizard.OnFinishedPostingListener {
 
+    private static final String USER_TAG = "fixitUser";
     private BottomNavigationView bottomNavigationView;
     private FragmentManager fragmentManager;
-    private EditText etAddComment;
-    private Button btnAddComment;
+    private FixitUser fixitUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
+
+        fixitUser = getIntent().getParcelableExtra(USER_TAG);
 
         fragmentManager = getSupportFragmentManager();
 
@@ -54,6 +55,10 @@ public class UserActivity extends FragmentActivity implements PostWizard.OnFinis
         });
 
         backToHome();
+    }
+
+    public FixitUser getFixitUser(){
+        return fixitUser;
     }
 
     @Override

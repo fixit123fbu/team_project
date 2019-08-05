@@ -4,17 +4,20 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.fixit.Models.Comment;
 import com.example.fixit.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +25,7 @@ import java.util.List;
 public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHolder> {
 
     Context context;
-    List<String> comments = new ArrayList<>();
+    List<Comment> comments = new ArrayList<>();
 
     public CommentsAdapter(Context context, String key){
         this.context = context;
@@ -32,7 +35,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 comments = new ArrayList<>();
                 for (DataSnapshot commentSnapshot: dataSnapshot.getChildren()) {
-                    comments.add(commentSnapshot.getValue(String.class));
+                    comments.add(commentSnapshot.getValue(Comment.class));
                 }
             }
             @Override
@@ -52,7 +55,9 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.tvComment.setText(comments.get(position));
+        holder.tvMessage.setText(comments.get(position).getMessage());
+        holder.tvUsername.setText(comments.get(position).getUser().getName());
+        Picasso.get().load(comments.get(position).getUser().getPhotoUrl()).into(holder.ivProfile);
     }
 
     @Override
@@ -62,11 +67,15 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
 
     class ViewHolder extends RecyclerView.ViewHolder{
 
-        TextView tvComment;
+        TextView tvMessage;
+        TextView tvUsername;
+        ImageView ivProfile;
 
         public ViewHolder(@NonNull View itemView, final CommentsAdapter adapter) {
             super(itemView);
-            tvComment = itemView.findViewById(R.id.tvSingleComment);
+            tvMessage = itemView.findViewById(R.id.tvSingleComment);
+            tvUsername = itemView.findViewById(R.id.tvUsernameComments);
+            ivProfile = itemView.findViewById(R.id.ivProfileComments);
         }
 
     }
