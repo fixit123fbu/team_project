@@ -80,6 +80,7 @@ public class IssuesAdapter extends RecyclerView.Adapter<IssuesAdapter.ViewHolder
             cvWholeIssue = itemView.findViewById(R.id.cvWholeIssue);
             btnFix = itemView.findViewById(R.id.btnFixVote);
             pbFixvotes = itemView.findViewById(R.id.pbFixVotes);
+            btnFix.setTag(true);
             pbFixvotes.setMax(MAX_VOTES);
             pbFixvotes.setMin(0);
             cvWholeIssue.setOnClickListener(new View.OnClickListener() {
@@ -93,13 +94,23 @@ public class IssuesAdapter extends RecyclerView.Adapter<IssuesAdapter.ViewHolder
                 }
             });
             btnFix.setOnClickListener(new View.OnClickListener() {
-
                 @RequiresApi(api = Build.VERSION_CODES.O)
                 @Override
                 public void onClick(View v) {
                     Integer position = getAdapterPosition();
                     Issue issue = issues.get(position);
-                    issue.setFixvotes(issue.getFixvotes()+1);
+
+                    if((Boolean)btnFix.getTag()){
+                        btnFix.setColorFilter(R.color.quantum_vanillablue500);
+                        issue.setFixvotes(issue.getFixvotes() + 1);
+                        btnFix.setTag(false);
+                    }
+                    else {
+                        btnFix.setColorFilter(R.color.quantum_grey900);
+                        if(issue.getFixvotes() > 0)
+                            issue.setFixvotes(issue.getFixvotes() - 1);
+                        btnFix.setTag(true);
+                    }
                     ViewHolder.this.tvFixvotes.setText(issue.getFixvotes()+"");
                     pbFixvotes.setProgress(issue.getFixvotes());
                     if (issue.getFixvotes() == MAX_VOTES) {
