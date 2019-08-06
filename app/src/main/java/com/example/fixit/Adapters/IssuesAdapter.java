@@ -101,14 +101,15 @@ public class IssuesAdapter extends RecyclerView.Adapter<IssuesAdapter.ViewHolder
                     Issue issue = issues.get(position);
 
                     if((Boolean)btnFix.getTag()){
-                        btnFix.setColorFilter(R.color.quantum_vanillablue500);
                         issue.setFixvotes(issue.getFixvotes() + 1);
+                        btnFix.setImageResource(R.drawable.uppblue);
                         btnFix.setTag(false);
                     }
                     else {
-                        btnFix.setColorFilter(R.color.quantum_grey900);
-                        if(issue.getFixvotes() > 0)
+                        if(issue.getFixvotes() > 0) {
                             issue.setFixvotes(issue.getFixvotes() - 1);
+                        }
+                        btnFix.setImageResource(R.drawable.upp);
                         btnFix.setTag(true);
                     }
                     ViewHolder.this.tvFixvotes.setText(issue.getFixvotes()+"");

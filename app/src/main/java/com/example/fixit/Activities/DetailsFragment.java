@@ -38,6 +38,7 @@ public class DetailsFragment extends Fragment implements OnMapReadyCallback {
     private SeekBar sbDanger;
     private SeekBar sbUtility;
     private Issue issue;
+    private TextView tvImageCounter;
     private TextView tvTitleDetails;
     private TextView tvTimestampDetails;
     private TextView tvDescriptionDetails;
@@ -104,6 +105,7 @@ public class DetailsFragment extends Fragment implements OnMapReadyCallback {
     private void getIssue() {
         issue = getArguments().getParcelable("issueDetails");
         tvTitleDetails.setText(issue.getTitle());
+        tvImageCounter.setText(issue.getImagesCont() + " Pictures");
 //        tvTimestampDetails.setText(getIntent().getStringExtra(INTENT_DATE_EXTRA));
         tvDescriptionDetails.setText(issue.getDescription());
     }
@@ -117,6 +119,7 @@ public class DetailsFragment extends Fragment implements OnMapReadyCallback {
         tvDescriptionDetails = view.findViewById(R.id.tvDescriptionDetails);
         etAddComment = view.findViewById(R.id.etAddComment);
         btnAddComment = view.findViewById(R.id.btnAddComment);
+        tvImageCounter = view.findViewById(R.id.tvImageCounter);
     }
 
     @Override
