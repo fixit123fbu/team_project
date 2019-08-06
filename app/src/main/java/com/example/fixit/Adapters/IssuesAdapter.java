@@ -58,9 +58,7 @@ public class IssuesAdapter extends RecyclerView.Adapter<IssuesAdapter.ViewHolder
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
-
-        String INTENT_ISSUE_EXTRA = DetailsFragment.class.getSimpleName();
-        String INTENT_DATE_EXTRA = "date";
+        private final Integer MAX_VOTES = 30;
         ImageView ivIssue;
         TextView tvTitle;
         TextView tvTimestamp;
@@ -93,14 +91,15 @@ public class IssuesAdapter extends RecyclerView.Adapter<IssuesAdapter.ViewHolder
                 }
             });
             btnFix.setOnClickListener(new View.OnClickListener() {
+
                 @RequiresApi(api = Build.VERSION_CODES.O)
                 @Override
                 public void onClick(View v) {
                     Integer position = getAdapterPosition();
                     Issue issue = issues.get(position);
                     issue.setFixvotes(issue.getFixvotes()+1);
-                    adapter.onBindViewHolder(ViewHolder.this, position);
-                    if (issue.getFixvotes() == 12) {
+                    ViewHolder.this.tvFixvotes.setText(issue.getFixvotes()+"");
+                    if (issue.getFixvotes() == MAX_VOTES) {
                         onButtonShowPopupWindowClick(v);
                     }
                 }

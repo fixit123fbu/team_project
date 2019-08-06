@@ -56,7 +56,7 @@ public class HomeManagerFragment extends Fragment {
     public void getIssues() {
         mIssues = new ArrayList<>();
         Query recentPostsQuery = FirebaseDatabase.getInstance().getReference().child(POST_ROUTE).orderByKey();//.endAt("-Lk59IfKS_d2B1MJs8FZ").limitToLast(2);
-        recentPostsQuery.addValueEventListener(new ValueEventListener() {
+        recentPostsQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot issueSnapshot : dataSnapshot.getChildren()) {
