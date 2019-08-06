@@ -80,6 +80,8 @@ public class IssuesAdapter extends RecyclerView.Adapter<IssuesAdapter.ViewHolder
             cvWholeIssue = itemView.findViewById(R.id.cvWholeIssue);
             btnFix = itemView.findViewById(R.id.btnFixVote);
             pbFixvotes = itemView.findViewById(R.id.pbFixVotes);
+            pbFixvotes.setMax(MAX_VOTES);
+            pbFixvotes.setMin(0);
             cvWholeIssue.setOnClickListener(new View.OnClickListener() {
                 @RequiresApi(api = Build.VERSION_CODES.O)
                 @Override
@@ -99,6 +101,7 @@ public class IssuesAdapter extends RecyclerView.Adapter<IssuesAdapter.ViewHolder
                     Issue issue = issues.get(position);
                     issue.setFixvotes(issue.getFixvotes()+1);
                     ViewHolder.this.tvFixvotes.setText(issue.getFixvotes()+"");
+                    pbFixvotes.setProgress(issue.getFixvotes());
                     if (issue.getFixvotes() == MAX_VOTES) {
                         onButtonShowPopupWindowClick(v);
                     }
