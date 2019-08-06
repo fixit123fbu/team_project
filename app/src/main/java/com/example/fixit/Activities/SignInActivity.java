@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -37,11 +38,13 @@ public class SignInActivity extends AppCompatActivity {
     private static final String USER_TAG = "fixitUser";
 
     private FirebaseAuth mAuth;
-
     private GoogleSignInClient mGoogleSignInClient;
     private EditText usernameSignUp;
     private EditText passwordSignUp;
     private Button signUpbtn;
+    private Button btnGoogleSignIn;
+    private ImageView ivLogoSignIn;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +54,8 @@ public class SignInActivity extends AppCompatActivity {
         usernameSignUp = findViewById(R.id.username_signin_et);
         passwordSignUp = findViewById(R.id.password_signin_et);
         signUpbtn = findViewById(R.id.btnSignIn);
+        ivLogoSignIn = findViewById(R.id.ivLogoSignIn);
+        btnGoogleSignIn = findViewById(R.id.btnGoogleSignIn);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -59,10 +64,12 @@ public class SignInActivity extends AppCompatActivity {
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-
         mAuth = FirebaseAuth.getInstance();
+        if(mAuth.getCurrentUser() != null){
+            showUserInfo(mAuth.getCurrentUser());
+        }
 
-        signUpbtn.setOnClickListener(new View.OnClickListener() {
+        btnGoogleSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 googleSignIn();

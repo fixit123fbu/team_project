@@ -7,39 +7,30 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvWholeIssue"
-        android:layout_width="0dp"
+        android:layout_width="411dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:clickable="true"
         android:elevation="10dp"
         app:cardCornerRadius="8dp"
-        android:clickable="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        tools:layout_editor_absoluteY="8dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cvRoundedCorners"
-                android:layout_width="0dp"
-                android:layout_height="138dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
+                android:layout_width="108dp"
+                android:layout_height="0dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginBottom="8dp"
                 android:elevation="10dp"
                 app:cardCornerRadius="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/ivClockIcon"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/ivClockIcon"
+                app:layout_constraintDimensionRatio="h,1:1"
+                app:layout_constraintEnd_toStartOf="@+id/pbFixVotes"
+                app:layout_constraintStart_toStartOf="@+id/tvTitleSingle"
                 app:layout_constraintTop_toBottomOf="@+id/tvTitleSingle">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -53,8 +44,10 @@
                         android:scaleType="centerCrop"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -65,25 +58,27 @@
                 style="@style/CustomProgressBar"
                 android:layout_width="0dp"
                 android:layout_height="9dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
-                android:max="100"
+                android:layout_marginBottom="7dp"
+                android:max="30"
                 android:min="0"
                 app:layout_constraintBottom_toTopOf="@+id/tvFixVotes"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/tvFixVotes"
-                app:layout_constraintTop_toBottomOf="@+id/btnStatus" />
+                app:layout_constraintEnd_toStartOf="@+id/btnFixVote"
+                app:layout_constraintStart_toEndOf="@+id/cvRoundedCorners"
+                app:layout_constraintTop_toTopOf="@+id/cvRoundedCorners" />
 
             <TextView
                 android:id="@+id/tvTitleSingle"
-                android:layout_width="301dp"
-                android:layout_height="35dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
                 android:fontFamily="@font/cabin"
                 android:gravity="start"
                 android:textColor="#2196F3"
@@ -96,41 +91,31 @@
 
             <TextView
                 android:id="@+id/tvFixVotes"
-                android:layout_width="62dp"
+                android:layout_width="0dp"
                 android:layout_height="16dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="29dp"
-                android:gravity="right"
+                android:gravity="right|left"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toTopOf="@+id/ivMapIcon"
-                app:layout_constraintEnd_toStartOf="@+id/btnFixVote"
-                app:layout_constraintStart_toEndOf="@+id/cvRoundedCorners"
-                app:layout_constraintTop_toBottomOf="@+id/pbFixVotes"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintEnd_toEndOf="@+id/pbFixVotes"
+                app:layout_constraintStart_toStartOf="@+id/pbFixVotes"
+                app:layout_constraintTop_toBottomOf="@+id/pbFixVotes" />
 
             <TextView
                 android:id="@+id/tvAddressSingle"
-                android:layout_width="200dp"
-                android:layout_height="20dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginLeft="12dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginBottom="8dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
                 app:layout_constraintBottom_toBottomOf="@+id/ivMapIcon"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintEnd_toEndOf="@+id/btnFixVote"
                 app:layout_constraintStart_toEndOf="@+id/ivMapIcon"
-                app:layout_constraintTop_toBottomOf="@+id/btnFixVote" />
+                app:layout_constraintTop_toTopOf="@+id/ivMapIcon"
+                app:layout_constraintVertical_bias="0.0" />
 
             <TextView
                 android:id="@+id/tvTimeStampSingle"
                 android:layout_width="0dp"
-                android:layout_height="20dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 app:layout_constraintBottom_toBottomOf="@+id/ivClockIcon"
@@ -142,37 +127,38 @@
             <ImageView
                 android:id="@+id/ivClockIcon"
                 android:layout_width="16dp"
-                android:layout_height="22dp"
-                android:layout_marginTop="6dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginBottom="20dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"
+                android:paddingTop="0dp"
+                android:paddingBottom="0dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/timestamp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/tvTimeStampSingle"
-                app:layout_constraintTop_toBottomOf="@+id/ivMapIcon"
-                app:layout_constraintVertical_bias="0.396" />
+                app:layout_constraintEnd_toEndOf="@+id/ivMapIcon"
+                app:layout_constraintStart_toStartOf="@+id/ivMapIcon"
+                app:layout_constraintTop_toBottomOf="@+id/ivMapIcon" />
 
             <ImageView
                 android:id="@+id/ivMapIcon"
                 android:layout_width="16dp"
-                android:layout_height="26dp"
-                android:layout_marginTop="8dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:scaleType="centerCrop"
                 android:src="@drawable/pin"
                 app:layout_constraintBottom_toTopOf="@+id/ivClockIcon"
                 app:layout_constraintEnd_toStartOf="@+id/tvAddressSingle"
-                app:layout_constraintStart_toStartOf="@+id/ivClockIcon"
+                app:layout_constraintStart_toStartOf="@+id/tvFixVotes"
                 app:layout_constraintTop_toBottomOf="@+id/tvFixVotes" />
 
             <Button
                 android:id="@+id/btnStatus"
-                android:layout_width="80dp"
-                android:layout_height="35dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
+                android:layout_width="70dp"
+                android:layout_height="0dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginRight="32dp"
                 android:background="#8BC34A"
                 android:gravity="center"
                 android:text="Open"
@@ -184,21 +170,18 @@
 
             <ImageButton
                 android:id="@+id/btnFixVote"
-                android:layout_width="57dp"
-                android:layout_height="47dp"
-                android:layout_marginStart="120dp"
-                android:layout_marginLeft="120dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_width="47dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="4dp"
                 android:background="#00FFFFFF"
+                android:src="@drawable/upp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/upvote"
-                app:layout_constraintBottom_toTopOf="@+id/tvAddressSingle"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/tvFixVotes"
-                app:layout_constraintTop_toBottomOf="@+id/pbFixVotes" />
+                app:layout_constraintBottom_toBottomOf="@+id/tvFixVotes"
+                app:layout_constraintEnd_toEndOf="@+id/btnStatus"
+                app:layout_constraintStart_toEndOf="@+id/pbFixVotes"
+                app:layout_constraintTop_toBottomOf="@+id/btnStatus" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

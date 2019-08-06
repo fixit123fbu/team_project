@@ -66,6 +66,7 @@ public class Issue implements Parcelable {
         } else {
             imagesCont = in.readInt();
         }
+        date = new Date(in.readLong());
         location = in.readParcelable(Location.class.getClassLoader());
     }
 
@@ -102,6 +103,7 @@ public class Issue implements Parcelable {
             dest.writeByte((byte) 1);
             dest.writeInt(imagesCont);
         }
+        dest.writeLong(date.getTime());
         dest.writeParcelable(location, flags);
     }
 
