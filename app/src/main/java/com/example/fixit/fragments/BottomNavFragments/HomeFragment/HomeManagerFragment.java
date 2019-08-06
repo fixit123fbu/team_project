@@ -1,20 +1,24 @@
 package com.example.fixit.fragments.BottomNavFragments.HomeFragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.fixit.Activities.SignInActivity;
 import com.example.fixit.Adapters.FragPagerAdapter;
 import com.example.fixit.Models.Issue;
 import com.example.fixit.R;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -33,6 +37,7 @@ public class HomeManagerFragment extends Fragment {
     private TabLayout tlHomeManager;
     private List<Issue> mIssues;
     private FragPagerAdapter adapter;
+    private Button btnLogOut;
 
     @Nullable
     @Override
@@ -49,6 +54,17 @@ public class HomeManagerFragment extends Fragment {
         tlHomeManager = view.findViewById(R.id.tlHomeFragment);
 
         adapter = new FragPagerAdapter(getChildFragmentManager());
+
+        btnLogOut = view.findViewById(R.id.btnLogOut);
+
+        btnLogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(getContext(), SignInActivity.class);
+                startActivity(intent);
+            }
+        });
 
         getIssues();
     }

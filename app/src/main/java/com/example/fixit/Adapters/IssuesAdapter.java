@@ -99,7 +99,6 @@ public class IssuesAdapter extends RecyclerView.Adapter<IssuesAdapter.ViewHolder
                 public void onClick(View v) {
                     Integer position = getAdapterPosition();
                     Issue issue = issues.get(position);
-
                     if((Boolean)btnFix.getTag()){
                         issue.setFixvotes(issue.getFixvotes() + 1);
                         btnFix.setImageResource(R.drawable.uppblue);
@@ -112,8 +111,8 @@ public class IssuesAdapter extends RecyclerView.Adapter<IssuesAdapter.ViewHolder
                         btnFix.setImageResource(R.drawable.upp);
                         btnFix.setTag(true);
                     }
-                    ViewHolder.this.tvFixvotes.setText(issue.getFixvotes()+"");
                     pbFixvotes.setProgress(issue.getFixvotes());
+                    tvFixvotes.setText(issue.getFixvotes()+" upvotes");
                     if (issue.getFixvotes() == MAX_VOTES) {
                         onButtonShowPopupWindowClick(v);
                     }

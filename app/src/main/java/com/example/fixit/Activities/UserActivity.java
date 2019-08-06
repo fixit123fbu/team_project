@@ -22,6 +22,7 @@ public class UserActivity extends FragmentActivity implements PostWizard.OnFinis
     private FragmentManager fragmentManager;
     private FixitUser fixitUser;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
