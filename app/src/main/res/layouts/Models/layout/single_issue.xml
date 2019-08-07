@@ -7,12 +7,16 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvWholeIssue"
-        android:layout_width="411dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:clickable="true"
         android:elevation="10dp"
         app:cardCornerRadius="8dp"
-        tools:layout_editor_absoluteY="8dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -126,7 +130,7 @@
 
             <ImageView
                 android:id="@+id/ivClockIcon"
-                android:layout_width="16dp"
+                android:layout_width="17dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="8dp"
@@ -176,8 +180,8 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="4dp"
                 android:background="#00FFFFFF"
-                android:src="@drawable/upp"
                 android:scaleType="centerCrop"
+                android:src="@drawable/upp"
                 app:layout_constraintBottom_toBottomOf="@+id/tvFixVotes"
                 app:layout_constraintEnd_toEndOf="@+id/btnStatus"
                 app:layout_constraintStart_toEndOf="@+id/pbFixVotes"

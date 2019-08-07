@@ -57,6 +57,14 @@ public class SignInActivity extends AppCompatActivity {
         ivLogoSignIn = findViewById(R.id.ivLogoSignIn);
         btnGoogleSignIn = findViewById(R.id.btnGoogleSignIn);
 
+        signUpbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SignInActivity.this, UserActivity.class);
+                startActivity(intent);
+            }
+        });
+
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
