@@ -60,7 +60,7 @@ public class IssuesAdapter extends RecyclerView.Adapter<IssuesAdapter.ViewHolder
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
-        private final Integer MAX_VOTES = 30;
+        private final Integer MAX_VOTES = 10;
         ImageView ivIssue;
         TextView tvTitle;
         TextView tvTimestamp;
