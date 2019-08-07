@@ -47,6 +47,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 public class PostFragment extends Fragment {
@@ -170,7 +171,7 @@ public class PostFragment extends Fragment {
         //Extract information necessary to create the issue
         String description = etDescription.getText().toString();
         String title = etTitle.getText().toString();
-        issue = new Issue(title, key, description, location, images.size());
+        issue = new Issue(title, key, description, location, images.size(), new Date().getTime());
         // Adjust issue values
         mPostReference.setValue(issue);
         // Upload image to storage

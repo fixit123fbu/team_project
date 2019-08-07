@@ -31,24 +31,24 @@ public class Issue implements Parcelable {
     private final static String POST_ROUTE = "posts";
     private final static String IMAGE_STORAGE_ROUTE = "images/";
     private static final String IMAGE_FORMAT = ".jpg";
-    String issueID;
-    Date date;
-    String title;
-    String description;
-    Integer fixvotes;
-    Integer imagesCont;
-    Location location;
+    private String issueID;
+    private Long fecha;
+    private String title;
+    private String description;
+    private Integer fixvotes;
+    private Integer imagesCont;
+    private Location location;
 
     public Issue(){}
 
-    public Issue(String title, String key, String description, Location location, Integer imagesCont){
+    public Issue(String title, String key, String description, Location location, Integer imagesCont, Long date){
         this.title = title;
         this.location = location;
         this.fixvotes = 0;
         this.description = description;
         this.issueID = key;
         this.imagesCont = imagesCont;
-        this.date = new Date();
+        this.fecha = date;
     }
 
 
@@ -66,7 +66,7 @@ public class Issue implements Parcelable {
         } else {
             imagesCont = in.readInt();
         }
-        date = new Date(in.readLong());
+        fecha = in.readLong();
         location = in.readParcelable(Location.class.getClassLoader());
     }
 
@@ -103,7 +103,7 @@ public class Issue implements Parcelable {
             dest.writeByte((byte) 1);
             dest.writeInt(imagesCont);
         }
-        dest.writeLong(date.getTime());
+        dest.writeLong(fecha);
         dest.writeParcelable(location, flags);
     }
 
@@ -158,6 +158,14 @@ public class Issue implements Parcelable {
 
     public Integer getImagesCont(){return imagesCont;}
 
+    public Long getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Long fecha) {
+        this.fecha = fecha;
+    }
+
     @Exclude
     public void addComment(Comment newComment){
         DatabaseReference mPostReference = getReferenceFirebase().child("comments").push();
@@ -207,8 +215,7 @@ public class Issue implements Parcelable {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public String formarDate(){
-        Date date = new Date();
+    public String formarDate(Date date){
         LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         int year  = localDate.getYear();
         int month = localDate.getMonthValue();

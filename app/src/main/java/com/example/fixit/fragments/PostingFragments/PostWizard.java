@@ -26,6 +26,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class PostWizard extends Fragment{
@@ -80,6 +81,7 @@ public class PostWizard extends Fragment{
             @Override
             public void onClick(View v) {
                 position = position - 1;
+                btnNext.setText("Next");
                 changeChildFrag();
             }
         });
@@ -89,6 +91,8 @@ public class PostWizard extends Fragment{
             public void onClick(View v) {
                 updateIssue();
                 position = position + 1;
+                if(position == PIC_POS)
+                    btnNext.setText("Submit");
                 changeChildFrag();
             }
         });
@@ -125,7 +129,7 @@ public class PostWizard extends Fragment{
         DatabaseReference mPostReference = mDatabase.getReference().child(POST_ROUTE).push();
         // Save new key
         String key = mPostReference.getKey();
-        issue = new Issue(title, key, description, location, images.size());
+        issue = new Issue(title, key, description, location, images.size(), new Date().getTime());
         // Upload issue to real time database
         mPostReference.setValue(issue);
         // Upload images to storage
