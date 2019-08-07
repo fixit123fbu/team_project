@@ -1,7 +1,6 @@
 package com.example.fixit.fragments.BottomNavFragments.HomeFragment;
 
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +20,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MapFragment extends Fragment implements OnMapReadyCallback {
@@ -34,18 +32,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     public MapFragment() {}
 
-    public static MapFragment newInstance(List<Issue> issues){
-        MapFragment mapFragment = new MapFragment();
-        Bundle args = new Bundle();
-        args.putParcelableArrayList("issues", (ArrayList<? extends Parcelable>) issues);
-        mapFragment.setArguments(args);
-        return mapFragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.mIssues = getArguments().getParcelableArrayList("issues");
+//        this.mIssues = getArguments().getParcelableArrayList("issues");
     }
 
     @Override
@@ -65,6 +55,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         }
     }
 
+    public void updateIssues(List<Issue> issues){
+        this.mIssues = issues;
+    }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
