@@ -57,4 +57,8 @@ public class TimelineFragment extends Fragment {
         // set layout manager on the recycler view
         rvTimeline.setLayoutManager(new LinearLayoutManager(getContext()));
     }
+
+    public void initializeRecyclerView(List<Issue> arrIssues){
+        this.mIssues = arrIssues;
+    }
 }
