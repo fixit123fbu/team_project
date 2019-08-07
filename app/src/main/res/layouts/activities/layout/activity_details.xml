@@ -50,7 +50,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/sbUtility"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tvDanger"
-                app:layout_constraintTop_toBottomOf="@+id/cdview" />
+                app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
             <SeekBar
                 android:id="@+id/sbUrgency"
@@ -71,7 +71,6 @@
                 android:id="@+id/vpImageDetails"
                 android:layout_width="0dp"
                 android:layout_height="300dp"
-                app:layout_constraintBottom_toTopOf="@id/cdview"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"></androidx.viewpager.widget.ViewPager>
@@ -96,27 +95,29 @@
 
             <TextView
                 android:id="@+id/tvDanger"
-                android:layout_width="109dp"
-                android:layout_height="20dp"
+                android:layout_width="152dp"
+                android:layout_height="22dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="15dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginBottom="8dp"
-                android:text="Danger"
+                android:text="How dangerous is this?"
                 app:layout_constraintBottom_toTopOf="@+id/tvUtility"
                 app:layout_constraintEnd_toStartOf="@+id/sbDanger"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cdview" />
+                app:layout_constraintTop_toBottomOf="@id/textView6" />
 
             <TextView
                 android:id="@+id/tvUtility"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="154dp"
+                android:layout_height="34dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="Utility"
+                android:text="How useful would the fix be?"
                 app:layout_constraintBottom_toTopOf="@+id/tvUrgency"
                 app:layout_constraintEnd_toEndOf="@+id/tvDanger"
                 app:layout_constraintStart_toStartOf="@+id/tvDanger"
@@ -128,9 +129,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="29dp"
-                android:text="Urgency"
+                android:text="How urgent is this?"
                 app:layout_constraintBottom_toTopOf="@+id/flComments"
                 app:layout_constraintEnd_toEndOf="@+id/tvUtility"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/tvUtility"
                 app:layout_constraintTop_toBottomOf="@+id/tvUtility" />
 
@@ -154,7 +156,8 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
-                app:layout_constraintBottom_toTopOf="@id/sbDanger"
+                android:layout_marginBottom="18dp"
+                app:layout_constraintBottom_toTopOf="@+id/textView6"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/vpImageDetails">
@@ -238,6 +241,26 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginEnd="6dp"
+                android:layout_marginRight="6dp"
+                android:layout_marginBottom="6dp"
+                android:text="Have you seen this issue?"
+                android:textColor="#2196F3"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/sbDanger"
+                app:layout_constraintEnd_toStartOf="@+id/sbDanger"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cdview"
+                app:layout_constraintVertical_bias="0.0" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
