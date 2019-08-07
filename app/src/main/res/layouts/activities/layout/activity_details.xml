@@ -10,12 +10,11 @@
         android:id="@+id/svDetails"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/etAddComment"
+        android:layout_marginBottom="69dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -51,7 +50,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/sbUtility"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tvDanger"
-                app:layout_constraintTop_toBottomOf="@+id/fragMapDetails" />
+                app:layout_constraintTop_toBottomOf="@+id/cdview" />
 
             <SeekBar
                 android:id="@+id/sbUrgency"
@@ -72,11 +71,10 @@
                 android:id="@+id/vpImageDetails"
                 android:layout_width="0dp"
                 android:layout_height="300dp"
-                app:layout_constraintBottom_toTopOf="@+id/tvTitleDetails"
+                app:layout_constraintBottom_toTopOf="@id/cdview"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-            </androidx.viewpager.widget.ViewPager>
+                app:layout_constraintTop_toTopOf="parent"></androidx.viewpager.widget.ViewPager>
 
             <TextView
                 android:id="@+id/tvImageCounter"
@@ -97,39 +95,6 @@
                 app:layout_constraintStart_toStartOf="@id/vpImageDetails" />
 
             <TextView
-                android:id="@+id/tvTitleDetails"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="1dp"
-                android:fontFamily="@font/cabin"
-                android:textColor="#2196F3"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/tvDescriptionDetails"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/vpImageDetails" />
-
-            <TextView
-                android:id="@+id/tvDescriptionDetails"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toTopOf="@+id/fragMapDetails"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvTitleDetails" />
-
-            <TextView
                 android:id="@+id/tvDanger"
                 android:layout_width="109dp"
                 android:layout_height="20dp"
@@ -143,7 +108,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/tvUtility"
                 app:layout_constraintEnd_toStartOf="@+id/sbDanger"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fragMapDetails" />
+                app:layout_constraintTop_toBottomOf="@id/cdview" />
 
             <TextView
                 android:id="@+id/tvUtility"
@@ -169,31 +134,87 @@
                 app:layout_constraintStart_toStartOf="@+id/tvUtility"
                 app:layout_constraintTop_toBottomOf="@+id/tvUtility" />
 
-            <fragment
-                android:id="@+id/fragMapDetails"
-                android:name="com.google.android.gms.maps.SupportMapFragment"
-                android:layout_width="0dp"
-                android:layout_height="125dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="6dp"
-                app:layout_constraintBottom_toTopOf="@+id/sbDanger"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvDescriptionDetails"
-                tools:context=".MapsActivity" />
-
             <FrameLayout
                 android:id="@+id/flComments"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
+                app:layout_constraintTop_toBottomOf="@+id/sbUrgency"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="418dp"></FrameLayout>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cdview"
+                android:layout_width="0dp"
+                android:layout_height="295dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                app:layout_constraintBottom_toTopOf="@id/sbDanger"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/sbUrgency"></FrameLayout>
+                app:layout_constraintTop_toBottomOf="@id/vpImageDetails">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/tvTitleDetails"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginRight="8dp"
+                        android:fontFamily="@font/cabin"
+                        android:textColor="#2196F3"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvDescriptionDetails"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="21dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginBottom="16dp"
+                        app:layout_constraintBottom_toTopOf="@+id/fragMapDetails"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tvTitleDetails" />
+
+                    <fragment
+                        android:id="@+id/fragMapDetails"
+                        android:name="com.google.android.gms.maps.SupportMapFragment"
+                        android:layout_width="383dp"
+                        android:layout_height="92dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginBottom="8dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tvDescriptionDetails"
+                        tools:context=".MapsActivity" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -217,9 +238,18 @@
 
     <Button
         android:id="@+id/btnAddComment"
+        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Send"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="#FFFFFF"
+        android:fontFamily="@font/cabin"
+        android:text="Send "
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#2196F3"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/etAddComment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/etAddComment"
