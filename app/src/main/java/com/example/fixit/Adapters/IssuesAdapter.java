@@ -26,6 +26,7 @@ import com.example.fixit.Activities.UserActivity;
 import com.example.fixit.Models.Issue;
 import com.example.fixit.R;
 
+import java.util.Date;
 import java.util.List;
 
 public class IssuesAdapter extends RecyclerView.Adapter<IssuesAdapter.ViewHolder>{
@@ -123,7 +124,7 @@ public class IssuesAdapter extends RecyclerView.Adapter<IssuesAdapter.ViewHolder
         @RequiresApi(api = Build.VERSION_CODES.O)
         public void bind(Issue issue) {
             tvTitle.setText(issue.getTitle());
-            tvTimestamp.setText("Reported on " + issue.formarDate());
+            tvTimestamp.setText("Reported on " + issue.formarDate(new Date(issue.getFecha())));
             tvFixvotes.setText(issue.getFixvotes()+" upvotes");
             tvAddress.setText(issue.formatAddress());
             pbFixvotes.setProgress(issue.getFixvotes());
