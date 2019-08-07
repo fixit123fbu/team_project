@@ -1,10 +1,13 @@
 package com.example.fixit.fragments.BottomNavFragments.HomeFragment;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -31,6 +34,8 @@ public class HomeManagerFragment extends Fragment {
 
     private final static String POST_ROUTE = "posts";
     private final static String GET_ISSUES = "getIssues";
+    private final static int TL_POS = 0;
+    private final static int MAP_POS = 1;
 
     private View view;
     private List<Issue> mIssues;
@@ -53,7 +58,7 @@ public class HomeManagerFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         adapter = new FragPagerAdapter(getChildFragmentManager());
         adapter.addFragment(new TimelineFragment());
@@ -62,21 +67,12 @@ public class HomeManagerFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 filterIssues();
+                hideKeyboardFrom(getContext(), view);
             }
         });
         getIssues();
-//        btnLogOut = view.findViewById(R.id.btnLogOut);
         btnLogOut = view.findViewById(R.id.btnLogOut);
         btnLogOut.setVisibility(View.GONE);
-//
-//        btnLogOut.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                FirebaseAuth.getInstance().signOut();
-//                Intent intent = new Intent(getContext(), SignInActivity.class);
-//                startActivity(intent);
-//            }
-//        });
     }
 
     public void filterIssues(){
@@ -121,16 +117,15 @@ public class HomeManagerFragment extends Fragment {
     }
 
     private void setViewPager(){
-
-        TimelineFragment tf = ((TimelineFragment)adapter.getItem(0));
-        MapFragment mf = ((MapFragment)adapter.getItem(1));
+        TimelineFragment tf = ((TimelineFragment)adapter.getItem(TL_POS));
+        MapFragment mf = ((MapFragment)adapter.getItem(MAP_POS));
         mf.updateIssues(mIssues);
         vpHomeManager.setAdapter(adapter);
         tlHomeManager.setupWithViewPager(vpHomeManager);
         tf.updateIssues(mIssues);
     }
 
-    public List<Issue> getmIssues(){
-        return mIssues;
-    }
-}
+    public static void hideKeyboardFrom(Context context, View view) {
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }}

@@ -30,6 +30,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.Date;
+
 public class DetailsFragment extends Fragment implements OnMapReadyCallback {
 
     private float DEFAULT_ZOOM = 15f;
@@ -41,6 +43,7 @@ public class DetailsFragment extends Fragment implements OnMapReadyCallback {
     private TextView tvImageCounter;
     private TextView tvTitleDetails;
     private TextView tvTimestampDetails;
+    private TextView tvTAddressDetails;
     private TextView tvDescriptionDetails;
     private ViewPager viewPager;
     private PagerAdapter pagerAdapter;
@@ -106,7 +109,8 @@ public class DetailsFragment extends Fragment implements OnMapReadyCallback {
         issue = getArguments().getParcelable("issueDetails");
         tvTitleDetails.setText(issue.getTitle());
         tvImageCounter.setText(issue.getImagesCont() + " Pictures");
-//        tvTimestampDetails.setText(getIntent().getStringExtra(INTENT_DATE_EXTRA));
+        tvTimestampDetails.setText(issue.formarDate(new Date(issue.getFecha())));
+        tvTAddressDetails.setText(issue.formatAddress());
         tvDescriptionDetails.setText(issue.getDescription());
     }
 
@@ -120,6 +124,8 @@ public class DetailsFragment extends Fragment implements OnMapReadyCallback {
         etAddComment = view.findViewById(R.id.etAddComment);
         btnAddComment = view.findViewById(R.id.btnAddComment);
         tvImageCounter = view.findViewById(R.id.tvImageCounter);
+        tvTAddressDetails = view.findViewById(R.id.tvAddressDetails);
+        tvTimestampDetails = view.findViewById(R.id.tvTimeStampDetails);
     }
 
     @Override
