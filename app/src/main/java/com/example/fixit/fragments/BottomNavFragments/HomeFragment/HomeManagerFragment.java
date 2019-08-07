@@ -61,7 +61,8 @@ public class HomeManagerFragment extends Fragment {
             }
         });
 
-//        btnLogOut = view.findViewById(R.id.btnLogOut);
+        btnLogOut = view.findViewById(R.id.btnLogOut);
+        btnLogOut.setVisibility(View.GONE);
 //
 //        btnLogOut.setOnClickListener(new View.OnClickListener() {
 //            @Override

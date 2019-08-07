@@ -26,6 +26,7 @@ import com.example.fixit.Activities.UserActivity;
 import com.example.fixit.Models.Issue;
 import com.example.fixit.R;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -83,7 +84,7 @@ public class IssuesAdapter extends RecyclerView.Adapter<IssuesAdapter.ViewHolder
             pbFixvotes = itemView.findViewById(R.id.pbFixVotes);
             btnFix.setTag(true);
             pbFixvotes.setMax(MAX_VOTES);
-            pbFixvotes.setMin(0);
+           // pbFixvotes.setMin(0);
             cvWholeIssue.setOnClickListener(new View.OnClickListener() {
                 @RequiresApi(api = Build.VERSION_CODES.O)
                 @Override
@@ -128,11 +129,11 @@ public class IssuesAdapter extends RecyclerView.Adapter<IssuesAdapter.ViewHolder
             tvFixvotes.setText(issue.getFixvotes()+" upvotes");
             tvAddress.setText(issue.formatAddress());
             pbFixvotes.setProgress(issue.getFixvotes());
-//            try {
-//                issue.downloadFile(0, ivIssue);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
+           try {
+               issue.downloadFile(0, ivIssue);
+           } catch (IOException e) {
+              e.printStackTrace();
+          }
         }
 
         public void onButtonShowPopupWindowClick(View view) {
