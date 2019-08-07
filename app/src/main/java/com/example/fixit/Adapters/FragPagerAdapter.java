@@ -10,7 +10,7 @@ import java.util.List;
 
 public class FragPagerAdapter extends FragmentPagerAdapter {
 
-    private final List<Fragment> mFragmentList = new ArrayList<>();
+    private List<Fragment> mFragmentList = new ArrayList<>();
 
     public  FragPagerAdapter(FragmentManager fm){
         super(fm);
@@ -28,8 +28,8 @@ public class FragPagerAdapter extends FragmentPagerAdapter {
         return mFragmentList.size();
     }
 
-
-    public void addFragment(Fragment fragment) {
+    public void addFragment(Fragment fragment)
+    {
         mFragmentList.add(fragment);
     }
 

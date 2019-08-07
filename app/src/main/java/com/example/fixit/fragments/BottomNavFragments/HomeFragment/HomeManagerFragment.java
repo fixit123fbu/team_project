@@ -34,33 +34,38 @@ public class HomeManagerFragment extends Fragment {
 
     private View view;
     private List<Issue> mIssues;
-//    private FragPagerAdapter adapter;
+    private FragPagerAdapter adapter;
     private EditText etSearch;
     private ImageButton btnSearch;
+    private TabLayout tlHomeManager;
+    private ViewPager vpHomeManager;
     private Button btnLogOut;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.manager_home, container, false);
+        etSearch = view.findViewById(R.id.tvSearch);
+        btnSearch = view.findViewById(R.id.btnSearch);
+        vpHomeManager = view.findViewById(R.id.vpHomeManager);
+        tlHomeManager = view.findViewById(R.id.tlHomeFragment);
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        etSearch = view.findViewById(R.id.tvSearch);
-        btnSearch = view.findViewById(R.id.btnSearch);
-
-        getIssues();
-
+        adapter = new FragPagerAdapter(getChildFragmentManager());
+        adapter.addFragment(new TimelineFragment());
+        adapter.addFragment(new MapFragment());
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 filterIssues();
             }
         });
-
+        getIssues();
+//        btnLogOut = view.findViewById(R.id.btnLogOut);
         btnLogOut = view.findViewById(R.id.btnLogOut);
         btnLogOut.setVisibility(View.GONE);
 //
@@ -116,13 +121,16 @@ public class HomeManagerFragment extends Fragment {
     }
 
     private void setViewPager(){
-        FragPagerAdapter adapter = new FragPagerAdapter(getChildFragmentManager());
-        TimelineFragment timelineFragment = TimelineFragment.newInstance(mIssues);
-        adapter.addFragment(timelineFragment);
-        adapter.addFragment(MapFragment.newInstance(mIssues));
-        ViewPager vpHomeManager = view.findViewById(R.id.vpHomeManager);
-        TabLayout tlHomeManager = view.findViewById(R.id.tlHomeFragment);
+
+        TimelineFragment tf = ((TimelineFragment)adapter.getItem(0));
+        MapFragment mf = ((MapFragment)adapter.getItem(1));
+        mf.updateIssues(mIssues);
         vpHomeManager.setAdapter(adapter);
         tlHomeManager.setupWithViewPager(vpHomeManager);
+        tf.updateIssues(mIssues);
+    }
+
+    public List<Issue> getmIssues(){
+        return mIssues;
     }
 }
