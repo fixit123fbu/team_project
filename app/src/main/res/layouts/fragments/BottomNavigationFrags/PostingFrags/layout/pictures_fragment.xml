@@ -7,47 +7,72 @@
     android:orientation="vertical">
 
     <ImageView
-        android:id="@+id/ivPreviewPictures"
-        android:layout_width="360dp"
-        android:layout_height="336dp"
-        android:layout_marginTop="46dp"
-        android:layout_marginBottom="8dp"
-        android:scaleType="fitCenter"
+        android:id="@+id/ivHeaderPictures"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:scaleType="centerCrop"
         android:src="@drawable/postinstru"
-        app:layout_constraintBottom_toTopOf="@+id/btnPickFromGalleryPictures"
+        app:layout_constraintBottom_toTopOf="@+id/vpPicturesFrag"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageButton
-        android:id="@+id/btnTakePicturePictures"
-        android:layout_width="228dp"
-        android:layout_height="222dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="168dp"
-        android:adjustViewBounds="true"
-        android:background="#00FFFFFF"
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/vpPicturesFrag"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnTakePicturePictures"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivHeaderPictures">
+    </androidx.viewpager.widget.ViewPager>
+
+    <TextView
+        android:id="@+id/tvImageCounterPicturesFrag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/round_bg"
+        android:fontFamily="@font/cabin"
+        android:gravity="start|left"
         android:paddingLeft="5dp"
         android:paddingTop="5dp"
-        android:paddingRight="0dp"
+        android:paddingRight="5dp"
         android:paddingBottom="5dp"
-        android:scaleType="fitCenter"
+        android:textColor="@color/quantum_grey50"
+        app:layout_constraintBottom_toBottomOf="@+id/vpPicturesFrag"
+        app:layout_constraintStart_toStartOf="@id/vpPicturesFrag" />
+
+    <ImageButton
+        android:id="@+id/btnTakePicturePictures"
+        android:layout_width="222dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="#00FFFFFF"
+        android:scaleType="centerCrop"
         android:src="@drawable/camm"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnPickFromGalleryPictures"
-        app:layout_constraintTop_toBottomOf="@+id/ivPreviewPictures"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/vpPicturesFrag" />
 
     <ImageButton
         android:id="@+id/btnPickFromGalleryPictures"
-        android:layout_width="185dp"
-        android:layout_height="128dp"
-        android:layout_marginStart="26dp"
-        android:layout_marginLeft="26dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="32dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="48dp"
         android:adjustViewBounds="true"
         android:background="#00FFFFFF"
         android:padding="0dp"
@@ -55,12 +80,13 @@
         android:paddingTop="5dp"
         android:paddingRight="5dp"
         android:paddingBottom="5dp"
-        android:scaleType="fitCenter"
+        android:scaleType="centerCrop"
         android:src="@drawable/gallery"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/btnTakePicturePictures"
         app:layout_constraintEnd_toStartOf="@+id/btnTakePicturePictures"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivPreviewPictures" />
+        app:layout_constraintTop_toTopOf="@+id/btnTakePicturePictures" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

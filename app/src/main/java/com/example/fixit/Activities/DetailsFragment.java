@@ -94,7 +94,8 @@ public class DetailsFragment extends Fragment implements OnMapReadyCallback {
     }
 
     private void configureViewPager() {
-        pagerAdapter = new PagerAdapter(getContext(), issue);
+        pagerAdapter = new PagerAdapter(getContext(), true);
+        pagerAdapter.setIssue(issue);
         viewPager.setAdapter(pagerAdapter);
     }
 

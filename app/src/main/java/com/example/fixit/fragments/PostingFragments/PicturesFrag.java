@@ -15,13 +15,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
+import com.example.fixit.Adapters.PagerAdapter;
 import com.example.fixit.R;
 
 import java.io.File;
@@ -39,8 +42,11 @@ public class PicturesFrag extends Fragment {
     private List<Bitmap> images;
 
     private ImageView ivPreviewPictures;
+    private ViewPager vpPicturesFrag;
+    private PagerAdapter pagerAdapter;
     private ImageButton btnPickFromGalleryPictures;
     private ImageButton btnTakePicturePictures;
+    private TextView tvImageCounterPicturesFrag;
 
     PicturesFrag(){}
 
@@ -48,15 +54,20 @@ public class PicturesFrag extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.pictures_fragment, container, false);
-        ivPreviewPictures = view.findViewById(R.id.ivPreviewPictures);
+        ivPreviewPictures = view.findViewById(R.id.ivHeaderPictures);
         btnPickFromGalleryPictures = view.findViewById(R.id.btnPickFromGalleryPictures);
         btnTakePicturePictures = view.findViewById(R.id.btnTakePicturePictures);
+        vpPicturesFrag = view.findViewById(R.id.vpPicturesFrag);
+        tvImageCounterPicturesFrag = view.findViewById(R.id.tvImageCounterPicturesFrag);
+        tvImageCounterPicturesFrag.setVisibility(View.GONE);
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        setPagerAdapter();
 
         btnTakePicturePictures.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,6 +83,11 @@ public class PicturesFrag extends Fragment {
             }
         });
 
+    }
+
+    private void setPagerAdapter() {
+        pagerAdapter = new PagerAdapter(getContext(), false);
+        vpPicturesFrag.setAdapter(pagerAdapter);
     }
 
     public void pickMultiplePics(){
@@ -159,6 +175,7 @@ public class PicturesFrag extends Fragment {
                             e.printStackTrace();
                         }
                         images.add(bitImage);
+                        pagerAdapter.addImage(bitImage);
                     }
                 }
                 else if(data.getData() != null) {
@@ -168,16 +185,24 @@ public class PicturesFrag extends Fragment {
                         e.printStackTrace();
                     }
                     images.add(bitImage);
+                    pagerAdapter.addImage(bitImage);
                 }
             }
             else if(requestCode == TAKE_PICTURE){
                 // by this point we have the camera photo on disk
                 bitImage = rotateBitmapOrientation(photoFile.getAbsolutePath());
                 images.add(bitImage);
+                pagerAdapter.addImage(bitImage);
                 Toast.makeText(getContext(), "To add another picture click de button again", Toast.LENGTH_LONG).show();
             }
         }
-        ivPreviewPictures.setImageBitmap(bitImage);
+        if(images.size() > 0) {
+            tvImageCounterPicturesFrag.setVisibility(View.VISIBLE);
+            tvImageCounterPicturesFrag.setText(images.size() + " Pictures");
+        }
+        else{
+            tvImageCounterPicturesFrag.setVisibility(View.GONE);
+        }
     }
 
     public List<Bitmap> getImages(){
