@@ -5,15 +5,19 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-
+import androidx.appcompat.widget.Toolbar;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
@@ -45,28 +49,32 @@ public class HomeManagerFragment extends Fragment {
     private TabLayout tlHomeManager;
     private ViewPager vpHomeManager;
     private Button btnLogOut;
+    private Toolbar toolbar;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
         view = inflater.inflate(R.layout.manager_home, container, false);
         etSearch = view.findViewById(R.id.tvSearch);
         btnSearch = view.findViewById(R.id.btnSearch);
         vpHomeManager = view.findViewById(R.id.vpHomeManager);
         tlHomeManager = view.findViewById(R.id.tlHomeFragment);
+        toolbar = view.findViewById(R.id.toolbar);
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         adapter = new FragPagerAdapter(getChildFragmentManager());
         adapter.addFragment(new TimelineFragment());
         adapter.addFragment(new MapFragment());
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                filterIssues();
+                filterIssuesByTitle();
                 hideKeyboardFrom(getContext(), view);
             }
         });
@@ -75,7 +83,7 @@ public class HomeManagerFragment extends Fragment {
         btnLogOut.setVisibility(View.GONE);
     }
 
-    public void filterIssues(){
+    public void filterIssuesByTitle(){
         mIssues = new ArrayList<>();
         final String search = etSearch.getText().toString();
         Query recentPostsQuery =  FirebaseDatabase.getInstance().getReference().child(POST_ROUTE);
@@ -88,7 +96,7 @@ public class HomeManagerFragment extends Fragment {
                         mIssues.add(issueSnapshot.getValue(Issue.class));
                     }
                 }
-                setViewPager();
+                updateWithFilteredIssues();
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -96,6 +104,28 @@ public class HomeManagerFragment extends Fragment {
             }
         });
     }
+
+    public void filterIssuesByLocation(final String loc){
+        mIssues = new ArrayList<>();
+        Query recentPostsQuery =  FirebaseDatabase.getInstance().getReference().child(POST_ROUTE);
+        recentPostsQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot issueSnapshot : dataSnapshot.getChildren()) {
+                    String title = issueSnapshot.child("location").child("address").getValue(String.class);;
+                    if(title.contains(loc)) {
+                        mIssues.add(issueSnapshot.getValue(Issue.class));
+                    }
+                }
+                updateWithFilteredIssues();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.w(GET_ISSUES, "loadPost:onCancelled", databaseError.toException());
+            }
+        });
+    }
+
 
     public void getIssues() {
         mIssues = new ArrayList<>();
@@ -107,7 +137,7 @@ public class HomeManagerFragment extends Fragment {
                 for (DataSnapshot issueSnapshot : dataSnapshot.getChildren()) {
                     mIssues.add(issueSnapshot.getValue(Issue.class));
                 }
-                setViewPager();
+                updateWithFilteredIssues();
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -116,7 +146,7 @@ public class HomeManagerFragment extends Fragment {
         });
     }
 
-    private void setViewPager(){
+    private void updateWithFilteredIssues(){
         TimelineFragment tf = ((TimelineFragment)adapter.getItem(TL_POS));
         MapFragment mf = ((MapFragment)adapter.getItem(MAP_POS));
         mf.updateIssues(mIssues);
@@ -128,4 +158,25 @@ public class HomeManagerFragment extends Fragment {
     public static void hideKeyboardFrom(Context context, View view) {
         InputMethodManager imm = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-    }}
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.main_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.Sunnyvale:
+                filterIssuesByLocation("Sunnyvale");
+                return  true;
+            case R.id.Berkeley:
+                filterIssuesByLocation("Berkeley");
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+}
