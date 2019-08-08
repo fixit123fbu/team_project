@@ -80,7 +80,7 @@ public class HomeManagerFragment extends Fragment {
                 hideKeyboardFrom(getContext(), view);
             }
         });
-        getIssues(false);
+        getIssues();
         btnLogOut = view.findViewById(R.id.btnLogOut);
         btnLogOut.setVisibility(View.GONE);
     }
@@ -129,15 +129,33 @@ public class HomeManagerFragment extends Fragment {
     }
 
 
-    public void getIssues(boolean byLikes) {
+    public void getIssues() {
         mIssues = new ArrayList<>();
         Query recentPostsQuery;
-        recentPostsQuery = FirebaseDatabase.getInstance().getReference().child(POST_ROUTE);//.endAt("-Lk59IfKS_d2B1MJs8FZ").limitToLast(2);
-        if(!byLikes){
-            recentPostsQuery.orderByKey();
-        }else{
-             recentPostsQuery.orderByChild("fixvotes");
-        }
+        recentPostsQuery = FirebaseDatabase.getInstance().getReference().child(POST_ROUTE).orderByKey();//.endAt("-Lk59IfKS_d2B1MJs8FZ").limitToLast(2);
+        recentPostsQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                sIssues = new Stack<Issue>();
+                for (DataSnapshot issueSnapshot : dataSnapshot.getChildren()) {
+                    sIssues.push(issueSnapshot.getValue(Issue.class));
+                }
+                while(!sIssues.isEmpty()){
+                    mIssues.add(sIssues.pop());
+                }
+                updateWithFilteredIssues();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.w(GET_ISSUES, "loadPost:onCancelled", databaseError.toException());
+            }
+        });
+    }
+
+    public void orderByFixVotes() {
+        mIssues = new ArrayList<>();
+        Query recentPostsQuery;
+        recentPostsQuery = FirebaseDatabase.getInstance().getReference().child(POST_ROUTE).orderByChild("fixvotes").startAt(0hgjtnfuer.0);//.endAt("-Lk59IfKS_d2B1MJs8FZ").limitToLast(2);
         recentPostsQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -187,7 +205,7 @@ public class HomeManagerFragment extends Fragment {
                 filterIssuesByLocation("Berkeley");
                 return true;
             case R.id.Trending:
-                getIssues(true);
+                orderByFixVotes();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

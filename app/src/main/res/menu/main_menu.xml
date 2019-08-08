@@ -1,25 +1,35 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
     <item
-        android:id="@+id/Trending"
-        android:title="Trending"
-        app:showAsAction="never">
-
-    </item>
-
-    <item
-        android:id="@+id/Location"
-        android:title="Location"
+        android:id="@+id/Filter"
+        android:title="Filter by..."
         app:showAsAction="never">
 
         <menu>
+
             <item
-                android:id="@+id/Sunnyvale"
-                android:title="Sunnyvale"/>
+                android:id="@+id/Trending"
+                android:title="Trending"
+                app:showAsAction="never">
+
+            </item>
+
             <item
-                android:id="@+id/Berkeley"
-                android:title="Berkeley"/>
+                android:id="@+id/Location"
+                android:title="Location"
+                app:showAsAction="never">
+
+                <menu>
+                    <item
+                        android:id="@+id/Sunnyvale"
+                        android:title="Sunnyvale"/>
+                    <item
+                        android:id="@+id/Berkeley"
+                        android:title="Berkeley"/>
+                </menu>
+
+            </item>
+
         </menu>
 
     </item>
