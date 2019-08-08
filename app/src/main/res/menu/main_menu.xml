@@ -2,8 +2,35 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/search"
-        android:icon="@drawable/ic_search_black_24dp"
-        android:title="Search"
-        app:actionViewClass="android.widget.SearchView" />
+        android:id="@+id/Status"
+        android:title="Status"
+        app:showAsAction="never">
+
+        <menu>
+            <item
+                android:id="@+id/Open"
+                android:title="Open"/>
+            <item
+                android:id="@+id/Closed"
+                android:title="Closed"/>
+        </menu>
+
+    </item>
+
+    <item
+        android:id="@+id/Location"
+        android:title="Location"
+        app:showAsAction="never">
+
+        <menu>
+            <item
+                android:id="@+id/Sunnyvale"
+                android:title="Sunnyvale"/>
+            <item
+                android:id="@+id/Berkeley"
+                android:title="Berkeley"/>
+        </menu>
+
+    </item>
+
 </menu>

@@ -4,8 +4,8 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.fixit.Models.FixitUser;
@@ -15,7 +15,7 @@ import com.example.fixit.fragments.BottomNavFragments.ProfileFragment;
 import com.example.fixit.fragments.PostingFragments.PostWizard;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class UserActivity extends FragmentActivity implements PostWizard.OnFinishedPostingListener {
+public class UserActivity extends AppCompatActivity implements PostWizard.OnFinishedPostingListener {
 
     private static final String USER_TAG = "fixitUser";
     private BottomNavigationView bottomNavigationView;
@@ -61,6 +61,7 @@ public class UserActivity extends FragmentActivity implements PostWizard.OnFinis
     public FixitUser getFixitUser(){
         return fixitUser;
     }
+
 
     @Override
     public void backToHome() {
