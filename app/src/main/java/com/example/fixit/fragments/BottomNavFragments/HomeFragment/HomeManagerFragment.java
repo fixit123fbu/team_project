@@ -33,6 +33,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 public class HomeManagerFragment extends Fragment {
 
@@ -43,6 +44,7 @@ public class HomeManagerFragment extends Fragment {
 
     private View view;
     private List<Issue> mIssues;
+    private Stack<Issue> sIssues;
     private FragPagerAdapter adapter;
     private EditText etSearch;
     private ImageButton btnSearch;
@@ -78,7 +80,7 @@ public class HomeManagerFragment extends Fragment {
                 hideKeyboardFrom(getContext(), view);
             }
         });
-        getIssues();
+        getIssues(false);
         btnLogOut = view.findViewById(R.id.btnLogOut);
         btnLogOut.setVisibility(View.GONE);
     }
@@ -127,15 +129,24 @@ public class HomeManagerFragment extends Fragment {
     }
 
 
-    public void getIssues() {
+    public void getIssues(boolean byLikes) {
         mIssues = new ArrayList<>();
         Query recentPostsQuery;
-        recentPostsQuery = FirebaseDatabase.getInstance().getReference().child(POST_ROUTE).orderByKey();//.endAt("-Lk59IfKS_d2B1MJs8FZ").limitToLast(2);
+        recentPostsQuery = FirebaseDatabase.getInstance().getReference().child(POST_ROUTE);//.endAt("-Lk59IfKS_d2B1MJs8FZ").limitToLast(2);
+        if(!byLikes){
+            recentPostsQuery.orderByKey();
+        }else{
+             recentPostsQuery.orderByChild("fixvotes");
+        }
         recentPostsQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                sIssues = new Stack<Issue>();
                 for (DataSnapshot issueSnapshot : dataSnapshot.getChildren()) {
-                    mIssues.add(issueSnapshot.getValue(Issue.class));
+                    sIssues.push(issueSnapshot.getValue(Issue.class));
+                }
+                while(!sIssues.isEmpty()){
+                    mIssues.add(sIssues.pop());
                 }
                 updateWithFilteredIssues();
             }
@@ -174,6 +185,9 @@ public class HomeManagerFragment extends Fragment {
                 return  true;
             case R.id.Berkeley:
                 filterIssuesByLocation("Berkeley");
+                return true;
+            case R.id.Trending:
+                getIssues(true);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
